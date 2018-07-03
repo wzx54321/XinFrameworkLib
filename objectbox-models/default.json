@@ -1,0 +1,71 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:4510219531830682002",
+      "lastPropertyId": "6:7004339368739328579",
+      "name": "EntityCookie",
+      "properties": [
+        {
+          "id": "1:1229213926542892278",
+          "name": "id"
+        },
+        {
+          "id": "2:1836498586827434535",
+          "indexId": "1:6904618792102688587",
+          "name": "host"
+        },
+        {
+          "id": "3:1756383034262221534",
+          "name": "name"
+        },
+        {
+          "id": "4:5991068685296643921",
+          "name": "domain"
+        },
+        {
+          "id": "5:5154435600598240278",
+          "name": "cookie"
+        },
+        {
+          "id": "6:7004339368739328579",
+          "name": "cookieToken"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:8448568310494097658",
+      "lastPropertyId": "3:7966919632354358607",
+      "name": "EntityHttpCache",
+      "properties": [
+        {
+          "id": "1:6263000461612392446",
+          "name": "id"
+        },
+        {
+          "id": "2:1597888272654151387",
+          "name": "host"
+        },
+        {
+          "id": "3:7966919632354358607",
+          "name": "data"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:8448568310494097658",
+  "lastIndexId": "1:6904618792102688587",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

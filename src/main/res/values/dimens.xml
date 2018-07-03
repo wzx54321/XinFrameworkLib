@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- COMMON TEXT SIZE -->
+    <dimen name="common_text_size_large_22">22sp</dimen>
+    <dimen name="common_text_size_medium_18">18sp</dimen>
+    <dimen name="common_text_size_small_14">14sp</dimen>
+    <dimen name="common_text_size_micro_12">12sp</dimen>
+
+
+
+
+</resources>

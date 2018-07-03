@@ -1,0 +1,74 @@
+apply plugin: 'com.android.library'
+apply plugin: 'io.objectbox'
+
+
+android {
+    compileSdkVersion androidVersion.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion androidVersion.minSdkVersion
+        targetSdkVersion androidVersion.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+// 注意 由于是框架底层所有需要业务成引用到的依赖需要使用compile，不使用implementation
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    /* android support */
+    compile var.appcompat_v7
+    /*---------------------------------------Frameworks----------------------------------------------*/
+    // 权限
+    compile(var.rxpermissions2) {
+        exclude module: 'rxjava'
+        exclude module: 'support-annotations'
+    }
+    // RXJAVA
+    compile var.rxjava2
+    compile var.rxandroid2
+    // retrofit
+    compile var.retrofit
+    compile var.retrofit_adapter_rxjava2
+    compile var.retrofit_converter_gson
+    // RX 生命周期
+    compile var.rxlifecycle
+    compile var.rxlifecycle_android
+    compile var.rxlifecycle_components
+    // glide
+    compile(var.glide) {
+        exclude group: "com.android.support"
+    }
+    compile var.glide_loader_okhttp3
+    annotationProcessor var.glide_compiler
+    /*---------------------------------------Frameworks END----------------------------------------------*/
+
+}
+
+buildscript {
+    apply from: "XinConfig.gradle"
+    repositories {
+        google()
+        jcenter()
+
+        maven { url "http://objectbox.net/beta-repo/" }
+    }
+
+    dependencies {
+        classpath var.objectbox
+    }
+}
+
+afterEvaluate {
+    tasks.withType(JavaCompile.class) {
+        options.compilerArgs << "-Xmaxerrs" << "500"
+    }
+}

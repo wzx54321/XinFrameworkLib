@@ -1,0 +1,51 @@
+ext {
+
+
+    androidVersion = [
+            compileSdkVersion: 27,
+            minSdkVersion    : 16,
+            targetSdkVersion : 27,
+            versionName      : "1.0.0",
+
+    ]
+
+
+    sdkVersion = [
+            objectboxVersion        : "1.5.0",
+            androidSupportSdkVersion: "27.1.1",
+            retrofitVersion         : "2.4.0",
+            VRxlifecycle            : "2.0.1",
+            rxandroid2              : "2.0.2",
+            rxjava2                 : "2.1.14",
+            glideVersion            : "4.7.1",
+            AdapterHelper           : '2.9.25',
+    ]
+
+
+    var = [
+            //Android support
+            appcompat_v7            : "com.android.support:appcompat-v7:${sdkVersion.androidSupportSdkVersion}",
+            support_v4              : "com.android.support:support-v4:${sdkVersion.androidSupportSdkVersion}",
+            // objectbox数据库
+            objectbox               : "io.objectbox:objectbox-gradle-plugin:${sdkVersion.objectboxVersion}",
+            // 权限
+            rxpermissions2          : "com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar",
+            // RXJAVA2
+            rxandroid2              : "io.reactivex.rxjava2:rxandroid:${sdkVersion.rxandroid2}",
+            rxjava2                 : "io.reactivex.rxjava2:rxjava:${sdkVersion.rxjava2}",
+            // Retrofit2
+            retrofit                : "com.squareup.retrofit2:retrofit:${sdkVersion.retrofitVersion}",
+            retrofit_adapter_rxjava2: "com.squareup.retrofit2:adapter-rxjava2:${sdkVersion.retrofitVersion}",
+            retrofit_converter_gson : "com.squareup.retrofit2:converter-gson:${sdkVersion.retrofitVersion}",
+            // rxlifecycle生命周期管理
+            rxlifecycle             : "com.trello.rxlifecycle2:rxlifecycle:${sdkVersion.VRxlifecycle}",
+            rxlifecycle_android     : "com.trello.rxlifecycle2:rxlifecycle-android:${sdkVersion.VRxlifecycle}",
+            rxlifecycle_components  : "com.trello.rxlifecycle2:rxlifecycle-components:${sdkVersion.VRxlifecycle}",
+            // glide
+            glide                   : "com.github.bumptech.glide:glide:${sdkVersion.glideVersion}",
+            glide_compiler          : "com.github.bumptech.glide:compiler:${sdkVersion.glideVersion}",
+            glide_loader_okhttp3    : "com.github.bumptech.glide:okhttp3-integration:${sdkVersion.glideVersion}",
+
+
+    ]
+}
