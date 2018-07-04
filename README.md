@@ -12,8 +12,9 @@
 ##### 方法一：使用git命令
 
 引入到项目使用： $ git subModule add git@github.com:wzx54321/XinFrameworkLib.git  
-1）在父项目中更新使用：$ git submodule foreach git pull   
-2）在XinFrameworkLib目录下使用：$ git pull  
+1) 在父项目中更新使用：$ git submodule foreach git pull
+2) 在XinFrameworkLib目录下使用：$ git pull
+3) 如果出现'XinFrameworkLib' already exists in the index使用$ git rm -r --cached XinFrameworkLib
 
 #####   方法二：直接导入源码到项目
 
