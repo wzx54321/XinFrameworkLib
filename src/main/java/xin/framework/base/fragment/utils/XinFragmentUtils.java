@@ -17,7 +17,7 @@ import xin.framework.utils.android.Loger.Log;
  * 作者：xin on 2018/7/2 0002 09:29
  * <p>
  * 邮箱：ittfxin@126.com
- *
+ * <p>
  * Fragment工具
  */
 
@@ -231,6 +231,7 @@ public class XinFragmentUtils {
 
     /**
      * 如果Activity中使用多个Fragment并添加了BackStack，使用back键可以使用这个方法
+     *
      * @param activity
      */
     public void onBackPress(Activity activity) {
@@ -239,6 +240,51 @@ public class XinFragmentUtils {
         } else {
             activity.finish();
         }
+    }
+
+
+    /**
+     * 获取目标Fragment的前一个 Fragment
+     *
+
+     */
+    public XinFragment getTopFragment(FragmentManager fragmentManager, int containerId) {
+        List<XinFragment> fragmentList = FragmentHack.getActiveFragments(fragmentManager);
+        if (fragmentList == null) return null;
+
+        for (int i = fragmentList.size() - 1; i >= 0; i--) {
+            XinFragment fragment = fragmentList.get(i);
+            if (containerId == 0) return fragment;
+
+            if (containerId == getArguments(fragment).getInt(ARG_CONTAINER)) {
+                return fragment;
+            }
+
+        }
+        return null;
+    }
+
+
+    /**
+     * 获取目标Fragment的前一个XinFragment
+     *
+     * @param fragment 目标Fragment
+     */
+    public static XinFragment getPreFragment(Fragment fragment) {
+        FragmentManager fragmentManager = fragment.getFragmentManager();
+        if (fragmentManager == null) return null;
+
+        List<Fragment> fragmentList = FragmentHack.getActiveFragments(fragmentManager);
+        if (fragmentList == null) return null;
+
+        int index = fragmentList.indexOf(fragment);
+        for (int i = index - 1; i >= 0; i--) {
+            Fragment preFragment = fragmentList.get(i);
+            if (preFragment instanceof XinFragment) {
+                return (XinFragment) preFragment;
+            }
+        }
+        return null;
     }
 
 }
