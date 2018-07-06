@@ -52,11 +52,7 @@ public class SelfDialog extends Dialog {
     private onYesOnclickListener yesOnclickListener;//确定按钮被点击了的监听器
 
     /**
-     * 29.     * 设置取消按钮的显示内容和监听
-     * 30.     *
-     * 31.     * @param str
-     * 32.     * @param onNoOnclickListener
-     * 33.
+     * 设置取消按钮的显示内容和监听
      */
 
 
@@ -66,11 +62,9 @@ public class SelfDialog extends Dialog {
     }
 
     /**
-     * 42.     * 设置确定按钮的显示内容和监听
-     * 43.     *
-     * 44.     * @param str
-     * 45.     * @param onYesOnclickListener
-     * 46.
+     * 设置确定按钮的显示内容和监听
+     *
+     * @param str
      */
 
 
@@ -114,8 +108,7 @@ public class SelfDialog extends Dialog {
     }
 
     /**
-     * 75.     * 初始化界面的确定和取消监听器
-     * 76.
+     * 初始化界面的确定和取消监听器
      */
 
     private void initView() {
@@ -127,8 +120,7 @@ public class SelfDialog extends Dialog {
     }
 
     /**
-     * 99.     * 初始化界面控件的显示数据
-     * 100.
+     * * 初始化界面控件的显示数据
      */
 
 
@@ -155,8 +147,7 @@ public class SelfDialog extends Dialog {
     }
 
     /**
-     * 119.     * 初始化界面控件
-     * 120.
+     * 初始化界面控件
      */
 
     private void initEvent() {
@@ -190,10 +181,9 @@ public class SelfDialog extends Dialog {
     }
 
     /**
-     * 129.     * 从外界Activity为Dialog设置标题
-     * 130.     *
-     * 131.     * @param title
-     * 132.
+     * 从外界Activity为Dialog设置标题
+     *
+     * @param title
      */
 
 
@@ -205,9 +195,8 @@ public class SelfDialog extends Dialog {
 
     /**
      * 从外界Activity为Dialog设置dialog的message
-     * 1     *
-     * .     * @param message
-     * 1
+     *
+     * @param message
      */
     public void setMessage(String message) {
         messageStr = message;

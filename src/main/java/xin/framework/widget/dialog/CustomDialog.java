@@ -23,7 +23,7 @@ import xin.framework.R;
  * }
  * });
  * selfDialog.setNoOnclickListener("取消", new SelfDialog.onNoOnclickListener() {
- *  public void onNoClick() {
+ * public void onNoClick() {
  * Toast.makeText(MainActivity.this, "点击了--取消--按钮", Toast.LENGTH_LONG).show();
  * CustomDialog.dismiss();
  * }
@@ -40,11 +40,7 @@ public class CustomDialog extends Dialog {
     private RelativeLayout contentRoot;
 
     /**
-     * 29.     * 设置取消按钮的显示内容和监听
-     * 30.     *
-     * 31.     * @param str
-     * 32.     * @param onNoOnclickListener
-     * 33.
+     * 设置取消按钮的显示内容和监听
      */
 
 
@@ -74,8 +70,7 @@ public class CustomDialog extends Dialog {
     }
 
     /**
-     * 75.     * 初始化界面的确定和取消监听器
-     * 76.
+     * 初始化界面的确定和取消监听器
      */
 
     private void initView() {
@@ -85,8 +80,7 @@ public class CustomDialog extends Dialog {
     }
 
     /**
-     * 99.     * 初始化界面控件的显示数据
-     * 100.
+     * 初始化界面控件的显示数据
      */
 
 
@@ -104,8 +98,7 @@ public class CustomDialog extends Dialog {
     }
 
     /**
-     * 119.     * 初始化界面控件
-     * 120.
+     * 初始化界面控件
      */
 
     private void initEvent() {
