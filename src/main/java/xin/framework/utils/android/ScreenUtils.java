@@ -52,8 +52,7 @@ public class ScreenUtils {
 
 
     public static int[] getScreenInfo() {
-        int[] info = new int[]{widthPixels, heightPixels};
-        return info;
+        return new int[]{widthPixels, heightPixels};
     }
 
     public static void hideSoftInputKeyBoard(Context context, View focusView) {

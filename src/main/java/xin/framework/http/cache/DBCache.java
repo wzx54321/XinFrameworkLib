@@ -9,6 +9,7 @@ import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscription;
 
 import java.lang.reflect.Type;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -86,8 +87,8 @@ public class DBCache<T> implements ICache {
                     entity.setHost(key);
                 }
 
-                //   Type objectType = TypeUtil.type(BaseOutPut.class, cls);
                 entity.setData(new Gson().toJson(t));
+
                 mBox.insert(entity);
                 Log.i("存缓存数据：" + entity.getData());
                 emitter.onComplete();
@@ -97,7 +98,7 @@ public class DBCache<T> implements ICache {
             public void accept(Subscription subscription) throws Exception {
                 Log.i("cache save to disk: " + key);
             }
-        }).compose(getScheduler());
+        }).compose(getScheduler()).delaySubscription(100, TimeUnit.MILLISECONDS);
         flowable.subscribe();
 
     }

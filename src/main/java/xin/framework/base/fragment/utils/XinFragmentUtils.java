@@ -111,9 +111,8 @@ public class XinFragmentUtils {
     /**
      * 先隐藏再显示
      *
-     * @param xinFragment
      */
-    public void HideShowFragment(XinFragment xinFragment) {
+    private void HideShowFragment(XinFragment xinFragment) {
 
 
         mFagmentManager.beginTransaction().hide(xinFragment).commit();

@@ -12,7 +12,7 @@ import java.io.Serializable;
  * 邮箱：ittfxin@126.com
  */
 
-public class BaseOutPut<T> implements Serializable {
+public class BaseOutPut<T> implements Serializable  {
     private static final long serialVersionUID = 2097291210268505721L;
 
     public T data;
