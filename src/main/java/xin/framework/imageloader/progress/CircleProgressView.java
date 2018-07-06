@@ -20,6 +20,7 @@ import java.lang.annotation.RetentionPolicy;
 import xin.framework.R;
 import xin.framework.utils.android.ScreenUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class CircleProgressView extends ProgressBar {
 
     private int mReachBarSize = ScreenUtils.dp2px(2); // 未完成进度条大小

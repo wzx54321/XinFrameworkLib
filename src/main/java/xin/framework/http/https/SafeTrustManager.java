@@ -1,5 +1,7 @@
 package xin.framework.http.https;
 
+import android.annotation.SuppressLint;
+
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
@@ -14,6 +16,7 @@ import javax.net.ssl.X509TrustManager;
  */
 public class SafeTrustManager implements X509TrustManager {
 
+    @SuppressLint("TrustAllX509TrustManager")
     @Override
     public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
     }

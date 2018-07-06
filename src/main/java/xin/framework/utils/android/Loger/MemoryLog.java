@@ -38,7 +38,7 @@ public class MemoryLog {
      * 
      * @param info 相关信息
      */
-    public static void printDalvikMemory(String info) {
+    private static void printDalvikMemory(String info) {
         if (  !DEBUG_MEMORY) {
             return;
         }
@@ -59,7 +59,7 @@ public class MemoryLog {
      * 
      * @param info 相关信息
      */
-    public static void nativePrintMemory(String info) {
+    private static void nativePrintMemory(String info) {
         if (  !DEBUG_MEMORY) {
             return;
         }
@@ -75,7 +75,7 @@ public class MemoryLog {
     /**
      * 打印内存信息
      */
-    public static void memoryApp(String info) {
+    private static void memoryApp(String info) {
 
         if ( !DEBUG_MEMORY) {
             return;

@@ -6,8 +6,10 @@ package xin.framework.http.listener;
  * 邮箱：ittfxin@126.com
  * @param <T>
  */
+@SuppressWarnings("WeakerAccess")
 public interface OnLoadListener<T> {
 
+    @SuppressWarnings("TypeParameterHidesVisibleType")
     <T> void onLoadCompleted(T t);
 
     void onLoadFailed(String errMsg);

@@ -72,6 +72,7 @@ public class GlideImageLoader {
         return Uri.parse(ANDROID_RESOURCE + getContext().getPackageName() + SEPARATOR + resId);
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public GlideImageLoader load(@DrawableRes int resId, @DrawableRes int placeholder, @NonNull Transformation<Bitmap> transformation) {
         return loadImage(resId2Uri(resId), placeholder, transformation);
     }

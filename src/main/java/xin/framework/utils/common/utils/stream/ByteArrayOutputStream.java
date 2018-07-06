@@ -67,6 +67,7 @@ public class ByteArrayOutputStream extends OutputStream {
      * @param size  the initial size
      * @throws IllegalArgumentException if size is negative
      */
+    @SuppressWarnings("WeakerAccess")
     public ByteArrayOutputStream(int size) {
         if (size < 0) {
             throw new IllegalArgumentException(
@@ -169,6 +170,7 @@ public class ByteArrayOutputStream extends OutputStream {
      * @throws IOException if an I/O error occurs while reading the input stream
      * @since 1.4
      */
+    @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
     public synchronized int write(InputStream in) throws IOException {
         int readCount = 0;
         int inBufferPos = count - filledBufferSum;

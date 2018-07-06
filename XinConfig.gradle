@@ -26,7 +26,7 @@ ext {
             //Android support
             appcompat_v7            : "com.android.support:appcompat-v7:${sdkVersion.androidSupportSdkVersion}",
             support_v4              : "com.android.support:support-v4:${sdkVersion.androidSupportSdkVersion}",
-            // objectbox数据库
+            // object box数据库
             objectbox               : "io.objectbox:objectbox-gradle-plugin:${sdkVersion.objectboxVersion}",
             // 权限
             rxpermissions2          : "com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar",

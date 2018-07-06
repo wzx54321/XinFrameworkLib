@@ -7,6 +7,7 @@ package xin.framework.utils.android.Loger;
  * Logger is a wrapper of {@link android.util.Log}
  * But more pretty, simple and powerful
  */
+@SuppressWarnings("WeakerAccess")
 public final class Log {
   public static final int DEBUG = 3;
   public static final int ERROR = 6;
@@ -37,6 +38,7 @@ public final class Log {
    *
    * @param tag is the given string which will be used in Logger as TAG
    */
+  @SuppressWarnings("SameParameterValue")
   public static LogSettings init(String tag) {
     printer = new LoggerPrinter();
     return printer.init(tag);

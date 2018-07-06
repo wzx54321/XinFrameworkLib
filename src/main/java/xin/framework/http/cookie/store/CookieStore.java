@@ -35,5 +35,6 @@ public interface CookieStore {
     boolean removeCookie(HttpUrl url);
 
     /** 移除所有的cookie */
+    @SuppressWarnings("SameReturnValue")
     boolean removeAllCookie();
 }

@@ -166,8 +166,7 @@ public class DateUtil {
               1);
         a.roll(Calendar.DATE,
                -1);
-        int maxDate = a.get(Calendar.DATE);
-        return maxDate;
+        return a.get(Calendar.DATE);
     }
 
     /**
@@ -189,8 +188,7 @@ public class DateUtil {
               1);
         a.roll(Calendar.DATE,
                -1);
-        int maxDate = a.get(Calendar.DATE);
-        return maxDate;
+        return a.get(Calendar.DATE);
     }
 
     /**
@@ -202,8 +200,7 @@ public class DateUtil {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd");
             Date myDate = myFormatter.parse(date);
             @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("E");
-            String str = formatter.format(myDate);
-            dayOfWeek = str;
+            dayOfWeek = formatter.format(myDate);
 
         } catch (Exception e) {
             System.out.println("错误!");

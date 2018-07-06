@@ -127,6 +127,7 @@ public class SysUtils {
     /**
      * 获取设备名称
      */
+    @SuppressWarnings("SameReturnValue")
     public static String getDeviceName() {
         return Build.MODEL;
     }
@@ -135,6 +136,7 @@ public class SysUtils {
     /**
      * 判断是否大于Honeycomb 3.0
      */
+    @SuppressLint("ObsoleteSdkInt")
     public static boolean hasHoneycomb() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
     }

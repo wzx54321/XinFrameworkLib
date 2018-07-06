@@ -72,6 +72,7 @@ import xin.framework.utils.common.utils.stream.StringBuilderWriter;
  *
  * @version $Id: IOUtils.java 1326636 2012-04-16 14:54:53Z ggregory $
  */
+@SuppressWarnings("WeakerAccess")
 public class IOUtils {
     // NOTE: This class is focussed on InputStream, OutputStream, Reader and
     // Writer. Each method should take at least one of these as a parameter,
@@ -1084,6 +1085,7 @@ public class IOUtils {
      *                                                      supported.
      * @since 2.0
      */
+    @SuppressWarnings("RedundantThrows")
     public static InputStream toInputStream(CharSequence input, String encoding) throws IOException {
         return toInputStream(input, Charsets.toCharset(encoding));
     }
@@ -1130,6 +1132,7 @@ public class IOUtils {
      *                                                      supported.
      * @since 1.1
      */
+    @SuppressWarnings("RedundantThrows")
     public static InputStream toInputStream(String input, String encoding) throws IOException {
         byte[] bytes = StringCodingUtils.getBytes(input, Charsets.toCharset(encoding));
         return new ByteArrayInputStream(bytes);
@@ -1517,6 +1520,7 @@ public class IOUtils {
     @Deprecated
     public static void write(StringBuffer data, OutputStream output)
             throws IOException {
+        //noinspection deprecation
         write(data, output, (String) null);
     }
 
@@ -1668,6 +1672,7 @@ public class IOUtils {
      * @throws IOException          if an I/O error occurs
      * @since 1.1
      */
+    @SuppressWarnings("UnusedReturnValue")
     public static int copy(InputStream input, OutputStream output) throws IOException {
         long count = copyLarge(input, output);
         if (count > Integer.MAX_VALUE) {
@@ -1880,6 +1885,7 @@ public class IOUtils {
      * @throws IOException          if an I/O error occurs
      * @since 1.1
      */
+    @SuppressWarnings("UnusedReturnValue")
     public static int copy(Reader input, Writer output) throws IOException {
         long count = copyLarge(input, output);
         if (count > Integer.MAX_VALUE) {
@@ -2412,6 +2418,7 @@ public class IOUtils {
      * @throws EOFException             if the number of characters read was incorrect
      * @since 2.2
      */
+    @SuppressWarnings("SameParameterValue")
     public static void readFully(Reader input, char[] buffer, int offset, int length) throws IOException {
         int actual = read(input, buffer, offset, length);
         if (actual != length) {
@@ -2451,6 +2458,7 @@ public class IOUtils {
      * @throws EOFException             if the number of bytes read was incorrect
      * @since 2.2
      */
+    @SuppressWarnings("SameParameterValue")
     public static void readFully(InputStream input, byte[] buffer, int offset, int length) throws IOException {
         int actual = read(input, buffer, offset, length);
         if (actual != length) {

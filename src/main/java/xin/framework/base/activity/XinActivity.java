@@ -55,7 +55,7 @@ public abstract class XinActivity<P extends IPresent> extends RxAppCompatActivit
 
     @Override
     public void bindUI(View rootView) {
-        //unbinder = KnifeKit.bind(this);
+        //unBinder = KnifeKit.bind(this);
     }
 
 
@@ -70,6 +70,7 @@ public abstract class XinActivity<P extends IPresent> extends RxAppCompatActivit
     }
 
 
+    @SuppressWarnings("unchecked")
     protected P getP() {
         if (p == null) {
             p = newP();

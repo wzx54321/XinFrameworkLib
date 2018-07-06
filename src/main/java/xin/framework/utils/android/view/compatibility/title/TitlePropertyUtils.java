@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
  * Utils to access android system properties.
  * <p/>
  */
+@SuppressWarnings({"unchecked", "WeakerAccess"})
 public class TitlePropertyUtils {
 
     public final static String PROPERTY_DNS_PRIMARY = "net.dns1";
@@ -59,6 +60,7 @@ public class TitlePropertyUtils {
      * @param defValue default value.
      * @return String
      */
+    @SuppressWarnings("SameParameterValue")
     public static String getQuickly(String key, String defValue) {
         if (TextUtils.isEmpty(key)) {
             return defValue;
@@ -80,6 +82,7 @@ public class TitlePropertyUtils {
         return value;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static String getWithCmd(String key, String defValue) {
         String value = defValue;
         try {

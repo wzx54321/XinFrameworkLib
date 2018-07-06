@@ -21,6 +21,7 @@ import xin.framework.utils.common.rxerrorhandler.handler.listener.ResponseErrorL
  * Contact with jess.yan.effort@gmail.com
  */
 
+@SuppressWarnings("WeakerAccess")
 public class PermissionUtil {
     public static final String TAG = "Permission";
 
@@ -95,7 +96,8 @@ public class PermissionUtil {
     /**
      * 请求外部存储的权限
      */
-    public static void externalStorage(RequestPermission requestPermission, RxPermissions rxPermissions,  RxErrorHandler errorHandler) {
+    @SuppressWarnings("SameParameterValue")
+    public static void externalStorage(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
         requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 

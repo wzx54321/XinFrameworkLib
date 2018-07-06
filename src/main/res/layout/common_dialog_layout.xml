@@ -53,7 +53,8 @@
                 android:singleLine="true"
                 android:text="@string/no"
                 android:textColor="#7D7D7D"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:layout_marginStart="10dp"/>
 
             <View
                 android:layout_width="1px"
@@ -71,7 +72,8 @@
                 android:singleLine="true"
                 android:text="@string/yes"
                 android:textColor="#38ADFF"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:layout_marginEnd="10dp"/>
         </LinearLayout>
     </LinearLayout>
 

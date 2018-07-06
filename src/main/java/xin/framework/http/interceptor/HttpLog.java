@@ -73,7 +73,7 @@ public class HttpLog implements Interceptor {
     }
 
 
-    private void logForRequest(Request request, Connection connection) throws IOException {
+    private void logForRequest(Request request, Connection connection) {
 
         boolean logBody = (printLevel == Level.BODY);
         boolean logHeaders = (printLevel == Level.BODY || printLevel == Level.HEADERS);

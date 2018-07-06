@@ -7,7 +7,7 @@ import android.widget.Toast;
 /**
  * 处理生命周期的一些操作和View成相关接口
  * <p>
- * 如：统计、弹窗/tost
+ * 如：统计、弹窗/toast
  * </P>
  */
 public class VDelegateImpl implements IVDelegate {

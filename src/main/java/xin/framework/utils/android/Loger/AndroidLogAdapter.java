@@ -18,43 +18,43 @@ class AndroidLogAdapter implements LogAdapter {
     @Override
     public void d(String tag, String message) {
         Log.d(tag, message);
-        writeLog2Native(message);
+        writeLog2Native();
 
     }
 
     @Override
     public void e(String tag, String message) {
         Log.e(tag, message);
-        writeLog2Native(message);
+        writeLog2Native();
     }
 
     @Override
     public void w(String tag, String message) {
         Log.w(tag, message);
-        writeLog2Native(message);
+        writeLog2Native();
     }
 
     @Override
     public void i(String tag, String message) {
         Log.i(tag, message);
-        writeLog2Native(message);
+        writeLog2Native();
     }
 
     @Override
     public void v(String tag, String message) {
         Log.v(tag, message);
-        writeLog2Native(message);
+        writeLog2Native();
     }
 
     @Override
     public void wtf(String tag, String message) {
         Log.wtf(tag, message);
 
-        writeLog2Native(message);
+        writeLog2Native();
     }
 
 
-    private void writeLog2Native(final String content) {
+    private void writeLog2Native() {
         //noinspection StatementWithEmptyBody
         if (isWriteLogToFile) {
             // TODO 写文件

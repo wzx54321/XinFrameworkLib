@@ -35,6 +35,7 @@ public class StringBuilderWriter extends Writer implements Serializable {
      *
      * @param capacity The initial capacity of the underlying {@link StringBuilder}
      */
+    @SuppressWarnings("SameParameterValue")
     public StringBuilderWriter(int capacity) {
         this.builder = new StringBuilder(capacity);
     }

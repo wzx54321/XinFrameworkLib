@@ -10,7 +10,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class NetworkRequest<T> extends NetworkCache {
 
-    Flowable<T> mFlowable;
+    private Flowable<T> mFlowable;
 
     public NetworkRequest(Flowable<T> ob) {
         mFlowable = ob;

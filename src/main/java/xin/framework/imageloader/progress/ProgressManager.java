@@ -1,5 +1,6 @@
 package xin.framework.imageloader.progress;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class ProgressManager {
             okHttpClient = new OkHttpClient.Builder()
                     .addNetworkInterceptor(new Interceptor() {
                         @Override
-                        public Response intercept(Chain chain) throws IOException {
+                        public Response intercept(@NonNull Chain chain) throws IOException {
                             Request request = chain.request();
                             Response response = chain.proceed(request);
                             return response.newBuilder()

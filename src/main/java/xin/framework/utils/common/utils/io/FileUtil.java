@@ -36,6 +36,7 @@ import xin.framework.utils.android.Loger.Log;
  * Created by xin on 2017/5/2 0002.
  */
 
+@SuppressWarnings("WeakerAccess")
 public class FileUtil {
     private static final String TAG = "FileUtil";
     public static final int DEFAULT_BUFFER_SIZE = 8 * 1024;
@@ -569,6 +570,7 @@ public class FileUtil {
      * @param file
      * @return
      */
+    @SuppressWarnings("UnusedReturnValue")
     public static boolean createNewFileAndParentDir(File file) {
         @SuppressWarnings("UnusedAssignment")
         boolean isCreateNewFileOk = true;

@@ -1,5 +1,6 @@
 package xin.framework.utils.android.view.compatibility.title;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -134,6 +135,7 @@ public class StatusBarUtil {
      * 设置Flyme4+的darkMode,darkMode时候字体颜色及icon变黑
      * http://open-wiki.flyme.cn/index.php?title=Flyme%E7%B3%BB%E7%BB%9FAPI
      */
+    @SuppressWarnings("UnusedReturnValue")
     private static boolean darkModeForFlyme4(Window window, boolean dark) {
         boolean result = false;
         if (window != null) {
@@ -166,11 +168,12 @@ public class StatusBarUtil {
      * 设置MIUI6+的状态栏是否为darkMode,darkMode时候字体颜色及icon变黑
      * http://dev.xiaomi.com/doc/p=4769/
      */
+    @SuppressWarnings("UnusedReturnValue")
     private static boolean darkModeForMIUI6(Window window, boolean darkmode) {
         Class<? extends Window> clazz = window.getClass();
         try {
-            int darkModeFlag = 0;
-            Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+            int darkModeFlag;
+            @SuppressLint("PrivateApi") Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
             Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
             darkModeFlag = field.getInt(layoutParams);
             Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
@@ -196,7 +199,7 @@ public class StatusBarUtil {
      */
     public static boolean isMIUI6Later() {
         try {
-            Class<?> clz = Class.forName("android.os.SystemProperties");
+            @SuppressLint("PrivateApi") Class<?> clz = Class.forName("android.os.SystemProperties");
             Method mtd = clz.getMethod("get", String.class);
             String val = (String) mtd.invoke(null, "ro.miui.ui.version.name");
             val = val.replaceAll("[vV]", "");

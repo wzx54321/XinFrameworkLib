@@ -1,5 +1,6 @@
 package xin.framework.utils.android.view.compatibility.title;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -20,6 +21,7 @@ import xin.framework.utils.android.SysUtils;
  * Compatibility for special ROM
  * <p/>
  */
+@SuppressWarnings("WeakerAccess")
 public class TitleCompatibilityUtil {
 
     private static final String TAG = "CompatibilityUtil";
@@ -94,7 +96,7 @@ public class TitleCompatibilityUtil {
 
 
     /**
-     * 设置状态栏字体图标为深色，需要MIUIV6以上
+     * 设置状态栏字体图标为深色，需要MIUI V6以上
      *
      * @param window 需要设置的窗口
      * @param dark   是否把状态栏字体及图标颜色设置为深色
@@ -105,18 +107,18 @@ public class TitleCompatibilityUtil {
         if (window != null) {
             Class clazz = window.getClass();
             try {
-                int darkModeFlag = 0;
-                Class layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+                int darkModeFlag;
+                @SuppressLint("PrivateApi") Class layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
                 Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
                 darkModeFlag = field.getInt(layoutParams);
-                Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
+                @SuppressWarnings("unchecked") Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
                 if (dark) {
                     extraFlagField.invoke(window, darkModeFlag, darkModeFlag);//状态栏透明且黑色字体
                 } else {
                     extraFlagField.invoke(window, 0, darkModeFlag);//清除黑色字体
                 }
                 result = true;
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
         return result;
@@ -152,7 +154,7 @@ public class TitleCompatibilityUtil {
                 meizuFlags.setInt(lp, value);
                 window.setAttributes(lp);
                 result = true;
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
         return result;
@@ -174,8 +176,8 @@ public class TitleCompatibilityUtil {
         }
 
         try {
-            Class e = Class.forName("android.os.SystemProperties");
-            Method m = e.getMethod("get", new Class[]{String.class});
+            @SuppressLint("PrivateApi") Class e = Class.forName("android.os.SystemProperties");
+            @SuppressWarnings("unchecked") Method m = e.getMethod("get", new Class[]{String.class});
             String navBarOverride = (String) m.invoke(e, new Object[]{"qemu.hw.mainkeys"});
             hasNavigationBar = "0".equals(navBarOverride);
         } catch (Exception var5) {
@@ -214,10 +216,10 @@ public class TitleCompatibilityUtil {
 
     /**
      * 已知系统类型时，设置状态栏黑色字体图标。
-     * 适配4.4以上版本MIUIV、Flyme和6.0以上版本其他Android
+     * 适配4.4以上版本MIU IV、Flyme和6.0以上版本其他Android
      *
      * @param window
-     * @param type   1:MIUUI 2:Flyme 3:android6.0
+     * @param type   1:MIU UI 2:Flyme 3:android6.0
      */
     public static void StatusBarLightMode(Window window, int type) {
         if (type == 1) {
@@ -225,17 +227,19 @@ public class TitleCompatibilityUtil {
         } else if (type == 2) {
             FlymeSetStatusBarLightMode(window, true);
         } else if (type == 3) {
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
         }
 
     }
 
     /**
      * 设置状态栏黑色字体图标，
-     * 适配4.4以上版本MIUIV、Flyme和6.0以上版本其他Android
+     * 适配4.4以上版本MIU IV、Flyme和6.0以上版本其他Android
      *
      * @param window
-     * @return 1:MIUUI 2:Flyme 3:android6.0
+     * @return 1:MIU UI 2:Flyme 3:android6.0
      */
     public static int StatusBarLightMode(Window window) {
         int result = 0;

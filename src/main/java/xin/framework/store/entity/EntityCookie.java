@@ -118,7 +118,7 @@ public class EntityCookie implements Serializable {
         this.cookieToken = cookie.name() + "@" + cookie.domain();
     }
 
-    public static byte[] cookieToBytes(String host, Cookie cookie) {
+    private static byte[] cookieToBytes(String host, Cookie cookie) {
         EntityCookie serializableCookie = new EntityCookie(host, cookie);
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         try {
@@ -184,7 +184,7 @@ public class EntityCookie implements Serializable {
         return bytesToCookie(bytes);
     }
 
-    public static Cookie bytesToCookie(byte[] bytes) {
+    private static Cookie bytesToCookie(byte[] bytes) {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
         Cookie cookie = null;
         try {

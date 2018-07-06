@@ -1,5 +1,6 @@
 package xin.framework.configs;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import io.objectbox.BoxStore;
@@ -15,6 +16,7 @@ import xin.framework.store.entity.MyObjectBox;
 
 public class DBConfig {
     private static BoxStore boxStore;
+    @SuppressLint("StaticFieldLeak")
     private static Context app;
 
 

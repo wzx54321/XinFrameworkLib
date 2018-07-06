@@ -24,7 +24,7 @@ import xin.framework.utils.android.ScreenUtils;
  * 邮箱：ittfxin@126.com
  */
 
-public class AppDelegate implements Application.ActivityLifecycleCallbacks {
+class AppDelegate implements Application.ActivityLifecycleCallbacks {
     private App app;
 
     private static int appCreateCount;

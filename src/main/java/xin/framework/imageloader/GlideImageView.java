@@ -19,6 +19,7 @@ import xin.framework.imageloader.transformation.RadiusTransformation;
 /**
  * 集成Glide的之定义View
  */
+@SuppressWarnings("WeakerAccess")
 @SuppressLint("CheckResult")
 public class GlideImageView extends android.support.v7.widget.AppCompatImageView {
 

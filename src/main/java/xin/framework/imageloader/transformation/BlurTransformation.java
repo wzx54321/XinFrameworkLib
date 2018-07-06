@@ -19,6 +19,7 @@ import xin.framework.utils.android.BlurUtils;
 /**
  * 高斯模糊转换
  */
+@SuppressWarnings("WeakerAccess")
 public class BlurTransformation extends BitmapTransformation {
     private final String ID = getClass().getName();
 

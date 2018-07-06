@@ -23,7 +23,7 @@ import xin.framework.R;
  * }
  * });
  * selfDialog.setNoOnclickListener("取消", new SelfDialog.onNoOnclickListener() {
- * @Override public void onNoClick() {
+ *  public void onNoClick() {
  * Toast.makeText(MainActivity.this, "点击了--取消--按钮", Toast.LENGTH_LONG).show();
  * CustomDialog.dismiss();
  * }

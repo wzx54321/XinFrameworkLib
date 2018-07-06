@@ -50,6 +50,7 @@ public class SPManager implements SharedPreferencesKeys {
      *
      * @param deviceId 设备ID
      */
+    @SuppressWarnings("UnusedReturnValue")
     @SuppressLint("HardwareIds")
     public boolean putDeviceId(String deviceId) {
 

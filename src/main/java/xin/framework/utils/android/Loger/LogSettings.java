@@ -27,6 +27,7 @@ public final class LogSettings {
         return this;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public LogSettings logLevel(LogLevel logLevel) {
         this.logLevel = logLevel;
         return this;

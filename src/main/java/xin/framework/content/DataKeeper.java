@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
  * 邮箱：ittfxin@126.com
  */
 
+@SuppressWarnings("WeakerAccess")
 public class DataKeeper {
     private final SharedPreferences.Editor editor;
     private SharedPreferences sp;

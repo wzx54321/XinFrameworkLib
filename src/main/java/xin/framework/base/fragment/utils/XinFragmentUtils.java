@@ -21,6 +21,7 @@ import xin.framework.utils.android.Loger.Log;
  * Fragment工具
  */
 
+@SuppressWarnings("unchecked")
 public class XinFragmentUtils {
     // Fragment容器布局ID参数
     static final String ARG_CONTAINER = "arg_container";
@@ -40,14 +41,14 @@ public class XinFragmentUtils {
     static final int STATUS_ROOT_ANIM_ENABLE = 2;
 
 
-    private FragmentManager mFagmentManager;
+    private FragmentManager fragmentManager;
 
     public XinFragmentUtils(FragmentActivity activity) {
-        mFagmentManager = activity.getSupportFragmentManager();
+        fragmentManager = activity.getSupportFragmentManager();
     }
 
     public XinFragmentUtils(Fragment fragment) {
-        mFagmentManager = fragment.getChildFragmentManager();
+        fragmentManager = fragment.getChildFragmentManager();
     }
 
     /**
@@ -64,7 +65,7 @@ public class XinFragmentUtils {
     }
 
     /**
-     * 加载多个同级根Fragment,类似Wechat, QQ主页的场景
+     * 加载多个同级根Fragment,  QQ主页的场景
      */
     public void loadMultipleRootFragment(int containerId, int showPosition, List<XinFragment> fragments) {
         loadMultipleRootFragment(containerId, showPosition, fragments.toArray(new XinFragment[]{}));
@@ -72,10 +73,10 @@ public class XinFragmentUtils {
     }
 
     /**
-     * 加载多个同级根Fragment,类似Wechat, QQ主页的场景
+     * 加载多个同级根Fragment,  QQ主页的场景
      */
     public void loadMultipleRootFragment(int containerId, int showPosition, XinFragment... toFragments) {
-        FragmentTransaction ft = mFagmentManager.beginTransaction();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
         int len = toFragments.length;
         Fragment to;
         for (int i = 0; i < len; i++) {
@@ -92,7 +93,7 @@ public class XinFragmentUtils {
             }
         }
 
-        supportCommit(mFagmentManager, ft);
+        supportCommit(fragmentManager, ft);
         HideShowFragment(toFragments[showPosition]);
     }
 
@@ -115,19 +116,20 @@ public class XinFragmentUtils {
     private void HideShowFragment(XinFragment xinFragment) {
 
 
-        mFagmentManager.beginTransaction().hide(xinFragment).commit();
-        mFagmentManager.beginTransaction().show(xinFragment).commit();
+        fragmentManager.beginTransaction().hide(xinFragment).commit();
+        fragmentManager.beginTransaction().show(xinFragment).commit();
     }
 
 
     /**
      * show一个Fragment,hide一个Fragment ; 主要用于类似微信主页那种 切换tab的情况
      */
+    @SuppressWarnings({"unchecked", "SameParameterValue"})
     public void showHideFragment(XinFragment showFragment, XinFragment hideFragment) {
         if (showFragment == hideFragment) return;
-        FragmentTransaction ft = mFagmentManager.beginTransaction().show(showFragment);
+        FragmentTransaction ft = fragmentManager.beginTransaction().show(showFragment);
         if (hideFragment == null) {
-            List<Fragment> fragmentList = FragmentHack.getActiveFragments(mFagmentManager);
+            List<Fragment> fragmentList = FragmentHack.getActiveFragments(fragmentManager);
             if (fragmentList != null) {
                 for (Fragment fragment : fragmentList) {
                     if (fragment != null && fragment != showFragment) {
@@ -138,20 +140,21 @@ public class XinFragmentUtils {
         } else {
             ft.hide(hideFragment);
         }
-        supportCommit(mFagmentManager, ft);
+        supportCommit(fragmentManager, ft);
     }
 
 
+    @SuppressWarnings("SameParameterValue")
     private void start(XinFragment fromFragment, XinFragment toFragment,
                        String toFragmentTag,
-                       boolean dontAddToBackStack,
+                       boolean unAddToBackStack,
                        boolean allowRootFragmentAnim,
                        int type) {
-        FragmentTransaction ft = mFagmentManager.beginTransaction();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
         boolean addMode = (type == TYPE_ADD || type == TYPE_ADD_RESULT || type == TYPE_ADD_WITHOUT_HIDE);
         Bundle args = getArguments(toFragment);
         args.putBoolean(ARG_REPLACE, !addMode);
-        TransactionRecord record = toFragment.getmTransactionRecord();
+        TransactionRecord record = toFragment.getTransactionRecord();
 
         if (record != null && record.sharedElementList != null && !record.sharedElementList.isEmpty()) {
             args.putBoolean(ARG_IS_SHARED_ELEMENT, true);
@@ -194,10 +197,10 @@ public class XinFragmentUtils {
             }
         }
 
-        if (!dontAddToBackStack && type != TYPE_REPLACE_DONT_BACK) {
+        if (!unAddToBackStack && type != TYPE_REPLACE_DONT_BACK) {
             ft.addToBackStack(toFragmentTag);
         }
-        supportCommit(mFagmentManager, ft);
+        supportCommit(fragmentManager, ft);
     }
 
     private void supportCommit(FragmentManager fragmentManager, FragmentTransaction transaction) {
@@ -234,8 +237,8 @@ public class XinFragmentUtils {
      * @param activity
      */
     public void onBackPress(Activity activity) {
-        if (mFagmentManager.getBackStackEntryCount() > 1) {
-            mFagmentManager.popBackStack();
+        if (fragmentManager.getBackStackEntryCount() > 1) {
+            fragmentManager.popBackStack();
         } else {
             activity.finish();
         }
@@ -269,11 +272,12 @@ public class XinFragmentUtils {
      *
      * @param fragment 目标Fragment
      */
+    @SuppressWarnings("unchecked")
     public static XinFragment getPreFragment(Fragment fragment) {
         FragmentManager fragmentManager = fragment.getFragmentManager();
         if (fragmentManager == null) return null;
 
-        List<Fragment> fragmentList = FragmentHack.getActiveFragments(fragmentManager);
+        @SuppressWarnings("unchecked") List<Fragment> fragmentList = FragmentHack.getActiveFragments(fragmentManager);
         if (fragmentList == null) return null;
 
         int index = fragmentList.indexOf(fragment);

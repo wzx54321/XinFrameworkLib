@@ -119,10 +119,10 @@ public class SelfDialog extends Dialog {
      */
 
     private void initView() {
-        yes = (Button) findViewById(R.id.yes);
-        no = (Button) findViewById(R.id.no);
-        titleTv = (TextView) findViewById(R.id.title);
-        messageTv = (TextView) findViewById(R.id.message);
+        yes = findViewById(R.id.yes);
+        no = findViewById(R.id.no);
+        titleTv = findViewById(R.id.title);
+        messageTv = findViewById(R.id.message);
 
     }
 
@@ -217,10 +217,10 @@ public class SelfDialog extends Dialog {
      * 设置确定按钮和取消被点击的接口
      */
     public interface onYesOnclickListener {
-        public void onYesClick();
+        void onYesClick();
     }
 
     public interface onNoOnclickListener {
-        public void onNoClick();
+        void onNoClick();
     }
 }

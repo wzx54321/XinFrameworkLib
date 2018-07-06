@@ -11,12 +11,13 @@ import android.widget.FrameLayout;
  * 解决沉浸式标题栏下，键盘兼容问题
  *
  */
+@SuppressWarnings("ALL")
 public class KeyBoardConflictCompat {
     private View mChildOfContent;
     private FrameLayout.LayoutParams frameLayoutParams;
     private int usableHeightPrevious;
     private int contentHeight;
-    private boolean isfirst = true;
+    private boolean isFirst = true;
     private int statusBarHeight;
 
     public static void assistActivity(Activity activity) {
@@ -28,9 +29,9 @@ public class KeyBoardConflictCompat {
         mChildOfContent = content.getChildAt(0);
         mChildOfContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             public void onGlobalLayout() {
-                if (isfirst) {
+                if (isFirst) {
                     contentHeight = mChildOfContent.getHeight();//兼容华为等机型
-                    isfirst = false;
+                    isFirst = false;
                 }
                 possiblyResizeChildOfContent();
             }

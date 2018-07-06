@@ -1,5 +1,6 @@
 package xin.framework.widget.popup;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -38,10 +39,8 @@ public class XinPopWindow extends PopupWindow {
     OnItemClickListener mOnItemClickListener;
     Activity mContext;
     private Window mWindow;
-    private View mMenuView;
     private ListView mItems;
     private MenuAdapter menuAdapter;
-    private View btnCancel;
 
     public XinPopWindow(Activity context) {
         mContext = context;
@@ -49,9 +48,9 @@ public class XinPopWindow extends PopupWindow {
         backgroundAlpha(1);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //noinspection ConstantConditions
-        mMenuView = inflater.inflate(R.layout.common_popwindow, null, false);
+        View mMenuView = inflater.inflate(R.layout.common_popwindow, null, false);
 
-        this.btnCancel = this.mMenuView.findViewById(R.id.btn_cancel);
+        View btnCancel = mMenuView.findViewById(R.id.btn_cancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +69,8 @@ public class XinPopWindow extends PopupWindow {
                                       }
         );
 
-        this.mMenuView.setOnTouchListener(new View.OnTouchListener() {
+        mMenuView.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP || event.getY() < mItems.getTop())

@@ -26,7 +26,7 @@ public abstract class XinFragment<P extends IPresent> extends RxFragment impleme
     @Nullable
     protected View mRootView;
     private IVDelegate delegateHandler;
-    TransactionRecord mTransactionRecord;
+    private TransactionRecord mTransactionRecord;
 
 
     /**
@@ -116,6 +116,7 @@ public abstract class XinFragment<P extends IPresent> extends RxFragment impleme
         delegateHandler = null;
     }
 
+    @SuppressWarnings("unchecked")
     protected P getP() {
         if (p == null) {
             p = newP();
@@ -130,11 +131,11 @@ public abstract class XinFragment<P extends IPresent> extends RxFragment impleme
         return delegateHandler;
     }
 
-    public TransactionRecord getmTransactionRecord() {
+    public TransactionRecord getTransactionRecord() {
         return mTransactionRecord;
     }
 
-    public void setmTransactionRecord(TransactionRecord mTransactionRecord) {
+    public void setTransactionRecord(TransactionRecord mTransactionRecord) {
         this.mTransactionRecord = mTransactionRecord;
     }
 

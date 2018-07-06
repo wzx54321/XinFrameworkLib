@@ -31,10 +31,11 @@ import xin.framework.configs.DBConfig;
 public abstract class BaseBoxManager<T> {
 
 
-    protected Box<T> mBox;
-    Class<T> tClass;
+    private Box<T> mBox;
+    private Class<T> tClass;
 
 
+    @SuppressWarnings("WeakerAccess")
     public BaseBoxManager(Class<T> entityClazz) {
 
         this.tClass = entityClazz;
@@ -52,6 +53,7 @@ public abstract class BaseBoxManager<T> {
      *
      * @return The ID of the object within its box.
      */
+    @SuppressWarnings("UnusedReturnValue")
     public long insert(T entity) {
         if (entity == null) return -1;
 

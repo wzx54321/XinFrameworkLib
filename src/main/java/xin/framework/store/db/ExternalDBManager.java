@@ -14,6 +14,7 @@ import java.io.InputStream;
  * Created by xin on 2016/9/21 0021.
  */
 
+@SuppressWarnings("WeakerAccess")
 public class ExternalDBManager {
 
     private static final String DB_NAME = " 数据库名称.db";

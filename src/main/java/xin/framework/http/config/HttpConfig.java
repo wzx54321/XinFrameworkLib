@@ -1,5 +1,7 @@
 package xin.framework.http.config;
 
+import android.annotation.SuppressLint;
+
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -70,7 +72,8 @@ public abstract class HttpConfig {
      * 可以根据个人需要创建项目需求的Builder
      */
 
-    public abstract OkHttpClient.Builder getCustomBuilder();
+    @SuppressWarnings("SameReturnValue")
+    protected abstract OkHttpClient.Builder getCustomBuilder();
 
 
     /**
@@ -116,6 +119,7 @@ public abstract class HttpConfig {
      * 重要的事情说三遍，以下代码不要直接使用
      */
     private static class SafeHostnameVerifier implements HostnameVerifier {
+        @SuppressLint("BadHostnameVerifier")
         @Override
         public boolean verify(String hostname, SSLSession session) {
             // 验证主机名是否匹配

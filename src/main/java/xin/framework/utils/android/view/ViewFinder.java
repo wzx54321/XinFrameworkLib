@@ -10,6 +10,7 @@ import android.widget.ListView;
  * Created by xin
  * 用于查找View使用替代findViewById
  */
+@SuppressWarnings("unchecked")
 public class ViewFinder {
 
     public static <T extends View> T find(View view, int id) {
@@ -20,6 +21,7 @@ public class ViewFinder {
         return (T) activity.findViewById(id);
     }
 
+    @SuppressWarnings("RedundantThrows")
     public static <T extends View> T getView(View view) throws Exception {
         return (T) view;
     }

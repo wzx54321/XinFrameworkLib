@@ -42,6 +42,7 @@ public class DBCache<T> implements ICache {
     public Flowable<BaseOutPut<T>> get(final String key, final Class cls) {
 
         return Flowable.create(new FlowableOnSubscribe<BaseOutPut<T>>() {
+            @SuppressWarnings("unchecked")
             @Override
             public void subscribe(FlowableEmitter<BaseOutPut<T>> emitter) throws Exception {
 
@@ -50,6 +51,7 @@ public class DBCache<T> implements ICache {
 
                 if (entity == null || TextUtils.isEmpty(entity.getHost())) {
 
+                    //noinspection unchecked
                     emitter.onNext(BaseOutPut.class.newInstance());
 
                     Log.i("数据库 没有获取到缓存数据：");
@@ -109,7 +111,7 @@ public class DBCache<T> implements ICache {
      *
      * @return
      */
-    public FlowableTransformer<BaseOutPut<T>, BaseOutPut<T>> getScheduler() {
+    private FlowableTransformer<BaseOutPut<T>, BaseOutPut<T>> getScheduler() {
         return new FlowableTransformer<BaseOutPut<T>, BaseOutPut<T>>() {
             @Override
             public Publisher<BaseOutPut<T>> apply(Flowable<BaseOutPut<T>> upstream) {

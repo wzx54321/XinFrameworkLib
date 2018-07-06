@@ -17,6 +17,7 @@ import xin.framework.utils.common.utils.io.SdCardUtil;
  * Created by xin on 2017/7/10 0010.
  */
 
+@SuppressWarnings("WeakerAccess")
 public class FileConfig {
 
 

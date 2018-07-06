@@ -15,8 +15,8 @@ import java.io.Serializable;
 public class BaseOutPut<T> implements Serializable  {
     private static final long serialVersionUID = 2097291210268505721L;
 
-    public T data;
-    public MetaBean  meta;
+    private T data;
+    private MetaBean  meta;
 
     public MetaBean getMeta() {
         return meta;

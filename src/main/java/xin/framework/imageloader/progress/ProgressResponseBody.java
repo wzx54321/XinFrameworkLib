@@ -15,6 +15,7 @@ import okio.Okio;
 import okio.Source;
 
 
+@SuppressWarnings("WeakerAccess")
 public class ProgressResponseBody extends ResponseBody {
 
     private static final Handler mainThreadHandler = new Handler(Looper.getMainLooper());
@@ -25,6 +26,7 @@ public class ProgressResponseBody extends ResponseBody {
     private ResponseBody responseBody;
     private BufferedSource bufferedSource;
 
+    @SuppressWarnings("SameParameterValue")
     ProgressResponseBody(String url, ProgressResponseBody.InternalProgressListener internalProgressListener, ResponseBody responseBody) {
         this.url = url;
         this.internalProgressListener = internalProgressListener;

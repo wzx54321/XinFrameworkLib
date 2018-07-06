@@ -15,6 +15,7 @@ import xin.framework.utils.android.Loger.Log;
  */
 
 
+@SuppressWarnings("unchecked")
 public class TypeUtil {
 
     public static <T> T getT(Object o, int i) {

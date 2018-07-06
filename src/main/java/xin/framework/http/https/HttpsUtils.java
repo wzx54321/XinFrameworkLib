@@ -2,6 +2,7 @@
 package xin.framework.http.https;
 
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import java.io.IOException;
@@ -29,6 +30,7 @@ import javax.net.ssl.X509TrustManager;
  * <p>
  * 邮箱：ittfxin@126.com
  */
+@SuppressWarnings("WeakerAccess")
 public class HttpsUtils {
 
     public static class SSLParams {
@@ -164,10 +166,12 @@ public class HttpsUtils {
      * 这是一种有很大安全漏洞的办法
      */
     public static X509TrustManager UnSafeTrustManager = new X509TrustManager() {
+        @SuppressLint("TrustAllX509TrustManager")
         @Override
         public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
         }
 
+        @SuppressLint("TrustAllX509TrustManager")
         @Override
         public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
         }
@@ -184,6 +188,7 @@ public class HttpsUtils {
      * 当验证 URL 主机名使用的默认规则失败时使用这些回调。如果主机名是可接受的，则返回 true
      */
     public static HostnameVerifier UnSafeHostnameVerifier = new HostnameVerifier() {
+        @SuppressLint("BadHostnameVerifier")
         @Override
         public boolean verify(String hostname, SSLSession session) {
             return true;
