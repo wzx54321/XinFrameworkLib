@@ -1,7 +1,7 @@
 package xin.framework.http.cache;
 
 
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import xin.framework.http.output.BaseOutPut;
 
 
@@ -12,5 +12,5 @@ import xin.framework.http.output.BaseOutPut;
  */
 public abstract class NetworkCache<T> {
 
-    public abstract Flowable<BaseOutPut<T>> get(String key, final Class<T>  cls);
+    public abstract Observable<BaseOutPut<T>> get(String key, final Class<T>  cls);
 }

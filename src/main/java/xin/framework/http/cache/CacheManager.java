@@ -1,10 +1,9 @@
 package xin.framework.http.cache;
 
 
-import org.reactivestreams.Publisher;
-
-import io.reactivex.Flowable;
-import io.reactivex.FlowableTransformer;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Consumer;
 import xin.framework.http.output.BaseOutPut;
 import xin.framework.utils.android.Loger.Log;
@@ -22,34 +21,34 @@ public class CacheManager<T> {
 
     private final DBCache<T> mDBCache;
 
-    private CacheManager() {
+    public CacheManager() {
         mDBCache = new DBCache<>();
     }
 
-    public static   CacheManager getInstance() {
+    public static   CacheManager  getInstance() {
         return LazyHolder.INSTANCE;
     }
 
-    public Flowable<BaseOutPut<T>> load(String key, Class<T> cls, NetworkCache<T> networkCache) {
+    public Observable<BaseOutPut<T>> load(String key, Class<T> cls, NetworkCache<T> networkCache) {
 
-        return Flowable.concat(
+        return Observable.concat(
                 loadFromDB(key, cls),
                 loadFromNetwork(key, cls, networkCache));
 
     }
 
 
-    private Flowable<BaseOutPut<T>> loadFromDB(String key, Class<T> cls) {
+    private Observable<BaseOutPut<T>> loadFromDB(String key, Class<T> cls) {
 
-        FlowableTransformer<BaseOutPut<T>, BaseOutPut<T>> transformer =
+        ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>> transformer =
                 log("load from disk: " + key);
 
         return mDBCache.get(key, cls).compose(transformer);
     }
 
-    private Flowable<BaseOutPut<T>> loadFromNetwork(final String key, final Class<T> cls
+    private Observable<BaseOutPut<T>> loadFromNetwork(final String key, final Class<T> cls
             , NetworkCache<T> networkCache) {
-        FlowableTransformer<BaseOutPut<T>, BaseOutPut<T>> transformer = log("load from network: " + key);
+        ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>> transformer = log("load from network: " + key);
 
         return networkCache.get(key, cls)
                 .compose(transformer)
@@ -65,19 +64,21 @@ public class CacheManager<T> {
 
     }
 
-    private FlowableTransformer<BaseOutPut<T>, BaseOutPut<T>> log(final String msg) {
-        return new FlowableTransformer<BaseOutPut<T>, BaseOutPut<T>>() {
+    private ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>> log(final String msg) {
 
+
+        return new ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>>() {
             @Override
-            public Publisher<BaseOutPut<T>> apply(Flowable<BaseOutPut<T>> upstream) {
+            public ObservableSource<BaseOutPut<T>> apply(Observable<BaseOutPut<T>> upstream) {
                 Log.v(msg);
                 return upstream;
             }
         };
+
     }
 
     private static final class LazyHolder {
-        static final CacheManager INSTANCE = new CacheManager();
+        static final CacheManager INSTANCE = new CacheManager<>();
     }
 
 

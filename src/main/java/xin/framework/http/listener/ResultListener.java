@@ -6,7 +6,7 @@ import xin.framework.http.output.BaseOutPut;
  * <li>Description:
  * <li>Created by xin on 2018/6/13.
  */
-public abstract class ResultListener implements OnLoadListener<BaseOutPut> {
+public abstract class ResultListener implements OnLoadListener  {
 
 
     public abstract void onLoadSuccess(BaseOutPut o);

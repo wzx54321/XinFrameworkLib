@@ -1,7 +1,7 @@
 package xin.framework.http.cache;
 
 
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import xin.framework.http.output.BaseOutPut;
 
 
@@ -12,7 +12,7 @@ import xin.framework.http.output.BaseOutPut;
  */
 public interface ICache<T> {
 
-    Flowable<BaseOutPut<T>> get(String key, Class cls);
+    Observable<BaseOutPut<T>> get(String key, Class cls);
 
     void put(String key, BaseOutPut<T> t, Class cls);
 }

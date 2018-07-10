@@ -5,18 +5,16 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 
-import org.reactivestreams.Publisher;
-import org.reactivestreams.Subscription;
-
 import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
-import io.reactivex.FlowableOnSubscribe;
-import io.reactivex.FlowableTransformer;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import xin.framework.http.output.BaseOutPut;
@@ -39,12 +37,12 @@ public class DBCache<T> implements ICache {
     }
 
     @Override
-    public Flowable<BaseOutPut<T>> get(final String key, final Class cls) {
+    public Observable<BaseOutPut<T>> get(final String key, final Class cls) {
 
-        return Flowable.create(new FlowableOnSubscribe<BaseOutPut<T>>() {
+        return Observable.create(new ObservableOnSubscribe<BaseOutPut<T>>() {
             @SuppressWarnings("unchecked")
             @Override
-            public void subscribe(FlowableEmitter<BaseOutPut<T>> emitter) throws Exception {
+            public void subscribe(ObservableEmitter<BaseOutPut<T>> emitter) throws Exception {
 
 
                 EntityHttpCache entity = mBox.getQueryBuilder().equal(EntityHttpCache_.host, key).build().findFirst();
@@ -67,9 +65,9 @@ public class DBCache<T> implements ICache {
 
 
             }
-        }, BackpressureStrategy.BUFFER).doOnSubscribe(new Consumer<Subscription>() {
+        } ).doOnSubscribe(new Consumer<Disposable>() {
             @Override
-            public void accept(Subscription subscription) throws Exception {
+            public void accept(Disposable subscription) throws Exception {
                 Log.i("cache-->load from disk: " + key);
             }
         }).compose(getScheduler());
@@ -79,10 +77,9 @@ public class DBCache<T> implements ICache {
     @Override
     public void put(final String key, final BaseOutPut t, final Class cls) {
 
-        Flowable<BaseOutPut<T>> flowable = Flowable.create(new FlowableOnSubscribe<BaseOutPut<T>>() {
+        Observable<BaseOutPut<T>> observable = Observable.create(new ObservableOnSubscribe<BaseOutPut<T>>() {
             @Override
-            public void subscribe(FlowableEmitter<BaseOutPut<T>> emitter) throws Exception {
-
+            public void subscribe(ObservableEmitter<BaseOutPut<T>> emitter) throws Exception {
                 EntityHttpCache entity = mBox.getQueryBuilder().equal(EntityHttpCache_.host, key).build().findUnique();
                 if (entity == null) {
                     entity = new EntityHttpCache();
@@ -95,13 +92,14 @@ public class DBCache<T> implements ICache {
                 Log.i("存缓存数据：" + entity.getData());
                 emitter.onComplete();
             }
-        }, BackpressureStrategy.BUFFER).doOnSubscribe(new Consumer<Subscription>() {
+        }).doOnSubscribe(new Consumer<Disposable>() {
             @Override
-            public void accept(Subscription subscription) throws Exception {
+            public void accept(Disposable disposable) throws Exception {
                 Log.i("cache save to disk: " + key);
             }
         }).compose(getScheduler()).delaySubscription(100, TimeUnit.MILLISECONDS);
-        flowable.subscribe();
+        observable.subscribe();
+
 
     }
 
@@ -109,15 +107,15 @@ public class DBCache<T> implements ICache {
     /**
      * 线程切换
      *
-     * @return
      */
-    private FlowableTransformer<BaseOutPut<T>, BaseOutPut<T>> getScheduler() {
-        return new FlowableTransformer<BaseOutPut<T>, BaseOutPut<T>>() {
+    private ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>> getScheduler() {
+        return new ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>>() {
             @Override
-            public Publisher<BaseOutPut<T>> apply(Flowable<BaseOutPut<T>> upstream) {
+            public ObservableSource<BaseOutPut<T>> apply(Observable<BaseOutPut<T>> upstream) {
                 return upstream.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
             }
         };
+
     }
 }
