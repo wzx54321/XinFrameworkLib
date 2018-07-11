@@ -13,7 +13,10 @@ import xin.framework.utils.android.Loger.Log;
  * 缓存管理
  * 作者：xin on 2018/6/7 0007 17:40
  * <p>
- * 邮箱：ittfxin@126.com <p>
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  * @param <T>
  */
 public class CacheManager<T> {

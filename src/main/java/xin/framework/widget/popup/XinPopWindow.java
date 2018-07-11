@@ -22,14 +22,18 @@ import java.util.List;
 import xin.framework.R;
 
 /**
+ * * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
+ * <p>
  * 使用方法：
  * <p>
  * <p>
  * List<XinPopWindow.MenuItem> menuItems=new ArrayList<>();
- * menuItems.add(new MyPopWindow.MenuItem("拍照"));
- * menuItems.add(new MyPopWindow.MenuItem("找下那个"));
- * menuItems.add(new MyPopWindow.MenuItem("拍照"));
- * menuItems.add(new MyPopWindow.MenuItem("拍照"));
+ * menuItems.add(new XinPopWindow.MenuItem("拍照"));
+ * menuItems.add(new XinPopWindow.MenuItem("拍照"));
+ * menuItems.add(new XinPopWindow.MenuItem("拍照"));
  * <p>
  * XinPopWindow myPopWindow = new XinPopWindow(MainActivity.this);
  * myPopWindow.setData(menuItems);

@@ -9,7 +9,10 @@ import java.io.Serializable;
  * <p>公共返回数据源
  * <p>
  * <p>
+ * <p>
  * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 
 public class BaseOutPut<T> implements Serializable  {

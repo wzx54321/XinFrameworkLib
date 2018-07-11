@@ -16,6 +16,10 @@ import xin.framework.http.cookie.store.CookieStore;
  * <p>
  * 邮箱：ittfxin@126.com
  * 描    述：CookieJar的实现类，默认管理了用户自己维护的cookie
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 public class CookieJarImpl implements CookieJar {
 

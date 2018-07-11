@@ -24,7 +24,11 @@ import xin.framework.configs.DBConfig;
 
 /**
  * Box统一管理
- *
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
+ * <p>
  * @param <T> 数据库表实体类
  * @author xin
  */

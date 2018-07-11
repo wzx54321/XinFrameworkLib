@@ -7,7 +7,10 @@ import xin.framework.store.entity.EntityHttpCache_;
 /**
  * 作者：xin on 2018/6/7 0007 20:35
  * <p>
+ * <p>
  * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 
 public class HttpCacheBox extends BaseBoxManager<EntityHttpCache> {

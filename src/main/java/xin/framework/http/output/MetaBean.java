@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 /**
  * <li>Description:判断网络请求数据返回是否成功的信息
  * <li>Created by xin on 2018/6/12.
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 public class MetaBean {
     /**

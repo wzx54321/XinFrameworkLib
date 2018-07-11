@@ -9,6 +9,10 @@ import android.widget.ListView;
 /**
  * Created by xin
  * 用于查找View使用替代findViewById
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 @SuppressWarnings("unchecked")
 public class ViewFinder {

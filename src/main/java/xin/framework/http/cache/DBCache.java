@@ -25,7 +25,11 @@ import xin.framework.utils.android.Loger.Log;
 import xin.framework.utils.common.TypeUtil;
 
 /**
- * 使用 object-box
+ * 使用 object-box,这里可以替换自己的数据库存储
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 public class DBCache<T> implements ICache {
 

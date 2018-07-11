@@ -33,6 +33,11 @@ import xin.framework.http.output.BaseOutPut;
  * getV().showData(data);
  * }
  * });
+ *
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 
 public class Net {

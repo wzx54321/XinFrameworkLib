@@ -14,6 +14,11 @@ import xin.framework.utils.android.view.compatibility.title.StatusBarUtil;
 
 /**
  * activity基类
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
+ * <p>
  * @param <P>
  */
 public abstract class XinActivity<P extends IPresent> extends RxAppCompatActivity implements IView<P> {

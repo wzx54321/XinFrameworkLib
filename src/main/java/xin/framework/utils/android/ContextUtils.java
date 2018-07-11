@@ -7,7 +7,10 @@ import android.support.annotation.NonNull;
 /**
  * 作者：xin on 2018/6/7 0007 14:17
  * <p>
+ * <p>
  * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 
 public class ContextUtils {

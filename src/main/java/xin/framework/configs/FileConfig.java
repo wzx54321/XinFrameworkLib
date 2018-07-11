@@ -15,6 +15,11 @@ import xin.framework.utils.common.utils.io.SdCardUtil;
 /**
  * Description : 文件路径配置
  * Created by xin on 2017/7/10 0010.
+ *
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 
 @SuppressWarnings("WeakerAccess")

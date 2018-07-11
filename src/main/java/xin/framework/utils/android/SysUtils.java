@@ -28,6 +28,11 @@ import xin.framework.utils.android.Loger.Log;
 
 /**
  * 系统相关工具
+ *
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 public class SysUtils {
 

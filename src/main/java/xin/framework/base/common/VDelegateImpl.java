@@ -9,6 +9,10 @@ import android.widget.Toast;
  * <p>
  * 如：统计、弹窗/toast
  * </P>
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 public class VDelegateImpl implements IVDelegate {
 

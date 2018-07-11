@@ -12,23 +12,28 @@ import xin.framework.R;
 
 /**
  * 使用方法：
- * final CustomDialog selfDialog = new CustomDialog(MainActivity.this);
+ * final CustomDialog customDialog = new CustomDialog(MainActivity.this);
  * <p>
- * selfDialog.setCustom(你的布局);
- * selfDialog.setYesOnclickListener("确定", new SelfDialog.onYesOnclickListener() {
+ * customDialog.setCustom(你的布局);
+ * customDialog.setYesOnclickListener("确定", new CustomDialog.onYesOnclickListener() {
  *
  * @Override public void onYesClick() {
  * Toast.makeText(MainActivity.this, "点击了--确定--按钮", Toast.LENGTH_LONG).show();
- * selfDialog.dismiss();
+ * customDialog.dismiss();
  * }
  * });
- * selfDialog.setNoOnclickListener("取消", new SelfDialog.onNoOnclickListener() {
+ * customDialog.setNoOnclickListener("取消", new CustomDialog.onNoOnclickListener() {
  * public void onNoClick() {
  * Toast.makeText(MainActivity.this, "点击了--取消--按钮", Toast.LENGTH_LONG).show();
- * CustomDialog.dismiss();
+ * customDialog.dismiss();
  * }
  * });
- * CustomDialog.show();
+ * customDialog.show();
+ *
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 
 public class CustomDialog extends Dialog {

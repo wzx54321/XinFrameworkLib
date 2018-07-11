@@ -21,6 +21,11 @@ import xin.framework.utils.android.Loger.Log;
 /**
  * Description :Cookie数据库实体
  * Created by xin on 2017/9/14 0014.
+ *
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 @Entity
 public class EntityCookie implements Serializable {

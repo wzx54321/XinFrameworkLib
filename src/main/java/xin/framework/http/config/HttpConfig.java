@@ -15,8 +15,12 @@ import xin.framework.http.interceptor.HttpLog;
 
 
 /**
- * Description : 网络请求配置抽象
+ *  网络请求配置抽象
  * Created by xin
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 
 public abstract class HttpConfig {

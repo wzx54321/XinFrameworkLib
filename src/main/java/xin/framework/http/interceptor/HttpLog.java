@@ -23,7 +23,10 @@ import xin.framework.utils.common.utils.io.IOUtils;
 
 /**
  * Description : 网络Log
- * Created by xin on 2017/8/22 0022.
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 
 public class HttpLog implements Interceptor {

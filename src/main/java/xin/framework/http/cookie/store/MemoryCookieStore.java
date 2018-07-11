@@ -14,7 +14,10 @@ import okhttp3.HttpUrl;
  * 描    述：Cookie 的内存管理
  * 作者：xin on 2018/6/27 0027 16:06
  * <p>
+ * <p>
  * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 public class MemoryCookieStore implements CookieStore {
 

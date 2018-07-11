@@ -8,6 +8,10 @@ import xin.framework.http.output.BaseOutPut;
 /**
  * <li>Description:
  * <li>Created by xin on 2018/6/14.
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 public class NetworkRequest<T> extends NetworkCache {
 

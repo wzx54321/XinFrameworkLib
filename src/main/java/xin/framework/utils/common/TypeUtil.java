@@ -11,7 +11,10 @@ import xin.framework.utils.android.Loger.Log;
  * Description : （反射获取泛型参数）
  * 作者：xin on 2018/6/27 0027 16:06
  * <p>
+ * <p>
  * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 
 

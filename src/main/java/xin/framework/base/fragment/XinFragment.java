@@ -20,6 +20,10 @@ import xin.framework.utils.android.view.compatibility.title.StatusBarUtil;
 /**
  * fragment基类
  * @param <P>
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 public abstract class XinFragment<P extends IPresent> extends RxFragment implements IView<P> {
     private P p;

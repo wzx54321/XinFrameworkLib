@@ -12,6 +12,10 @@ import java.io.InputStream;
 /**
  * Description :  使用外部的.db文件，扩展示例
  * Created by xin on 2016/9/21 0021.
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 
 @SuppressWarnings("WeakerAccess")

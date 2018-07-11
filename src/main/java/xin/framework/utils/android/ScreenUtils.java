@@ -11,6 +11,10 @@ import android.view.inputmethod.InputMethodManager;
 /**
  * Description : 屏幕工具
  * Created by xin on 2017/11/2 0002.
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
 
 public class ScreenUtils {

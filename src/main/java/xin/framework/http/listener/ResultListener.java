@@ -3,10 +3,13 @@ package xin.framework.http.listener;
 import xin.framework.http.output.BaseOutPut;
 
 /**
- * <li>Description:
  * <li>Created by xin on 2018/6/13.
+ * <p>
+ * 邮箱：ittfxin@126.com
+ * <p>
+ * https://github.com/wzx54321/XinFrameworkLib
  */
-public abstract class ResultListener implements OnLoadListener  {
+public abstract class ResultListener implements OnLoadListener {
 
 
     public abstract void onLoadSuccess(BaseOutPut o);
