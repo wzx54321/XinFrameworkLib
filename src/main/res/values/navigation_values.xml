@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- bottomNavigation使用-->
+<resources>
+
+
+    <dimen name="design_bottom_navigation_active_text_size">@dimen/common_text_size_micro_12</dimen>
+    <dimen name="design_bottom_navigation_text_size">@dimen/common_text_size_micro_12</dimen>
+
+
+  <!--  &lt;!&ndash;BottomNavigationView 只放图标时的设置&ndash;&gt;
+    <dimen name="design_bottom_navigation_active_text_size">0sp</dimen>
+    <dimen name="design_bottom_navigation_text_size">0sp</dimen>
+    <dimen name="design_bottom_navigation_margin">16dp</dimen>-->
+
+
+    <!--tab_tv_ch-->
+    <color name="tab_tv_ch">#368EE5</color>
+    <color name="tab_tv_n">#444444</color>
+</resources>

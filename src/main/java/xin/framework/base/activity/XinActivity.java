@@ -2,6 +2,7 @@ package xin.framework.base.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -19,6 +20,7 @@ import xin.framework.utils.android.view.compatibility.title.StatusBarUtil;
  * <p>
  * https://github.com/wzx54321/XinFrameworkLib
  * <p>
+ *
  * @param <P>
  */
 public abstract class XinActivity<P extends IPresent> extends RxAppCompatActivity implements IView<P> {
@@ -49,12 +51,20 @@ public abstract class XinActivity<P extends IPresent> extends RxAppCompatActivit
         // 创建统一处理
         delegateHandler = VDelegateImpl.onCreate(this);
 
+        prepareData();
         if (getLayoutId() > 0) {
-            setContentView(getLayoutId());
-            bindUI(null);
+            View rootView = LayoutInflater.from(this).inflate(getLayoutId(), null, false);
+            setContentView(rootView);
+            bindUI(rootView);
         }
         initData(savedInstanceState);
 
+    }
+
+    /**
+     * 在UI之前准备数据
+     */
+    public void prepareData() {
     }
 
 

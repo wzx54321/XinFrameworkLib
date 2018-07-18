@@ -23,9 +23,10 @@ android {
 
 // 注意 由于是框架底层所有需要业务成引用到的依赖需要使用compile，不使用implementation
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     /* android support */
     compile var.appcompat_v7
+    compile var.support_design
     /*---------------------------------------Frameworks----------------------------------------------*/
     // 权限
     compile(var.rxpermissions2) {
@@ -48,6 +49,7 @@ dependencies {
         exclude group: "com.android.support"
     }
     compile var.glide_loader_okhttp3
+
     annotationProcessor var.glide_compiler
     /*---------------------------------------Frameworks END----------------------------------------------*/
 
