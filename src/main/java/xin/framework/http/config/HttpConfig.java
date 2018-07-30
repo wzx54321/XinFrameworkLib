@@ -41,6 +41,11 @@ public abstract class HttpConfig {
         //  httpLog.setPrintBinaryBody(true);// 打印二进制Log ,默认不打印
         builder.addInterceptor(httpLog);
 
+
+       /* HeaderInterceptor headerInterceptor = new HeaderInterceptor();
+        builder.addInterceptor(headerInterceptor);*/
+
+
         // 超时时间设置，默认60秒
         builder.readTimeout(DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);      // 全局的读取超时时间
         builder.writeTimeout(DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);     // 全局的写入超时时间

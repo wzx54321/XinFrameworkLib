@@ -6,6 +6,9 @@ import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Consumer;
 import xin.framework.http.output.BaseOutPut;
+import xin.framework.http.request.XinRequest;
+import xin.framework.http.func.OutputFunc;
+import xin.framework.http.request.XinDBRequest;
 import xin.framework.utils.android.Loger.Log;
 
 
@@ -17,53 +20,53 @@ import xin.framework.utils.android.Loger.Log;
  * 邮箱：ittfxin@126.com
  * <p>
  * https://github.com/wzx54321/XinFrameworkLib
+ *
  * @param <T>
  */
 public class CacheManager<T> {
 
 
-    private final DBCache<T> mDBCache;
+    private final XinDBRequest<T> mDBCache;
 
     public CacheManager() {
-        mDBCache = new DBCache<>();
+        mDBCache = new XinDBRequest<>();
     }
 
-    public static   CacheManager  getInstance() {
+    public static CacheManager getInstance() {
         return LazyHolder.INSTANCE;
     }
 
-    public Observable<BaseOutPut<T>> load(String key, Class<T> cls, NetworkCache<T> networkCache) {
+    public Observable<T> load(XinRequest<T> netRequest) {
 
         return Observable.concat(
-                loadFromDB(key, cls),
-                loadFromNetwork(key, cls, networkCache));
+                loadFromDB(netRequest),
+                loadFromNetwork(netRequest));
 
     }
 
 
-    private Observable<BaseOutPut<T>> loadFromDB(String key, Class<T> cls) {
+    private Observable<T> loadFromDB(XinRequest<T> netRequest) {
 
-        ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>> transformer =
-                log("load from disk: " + key);
+       /* ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>> transformer =
+                log("load from disk: " + netRequest.cachekey);*/
 
-        return mDBCache.get(key, cls).compose(transformer);
+        return mDBCache.get(netRequest.cachekey, netRequest.rspClazz);
     }
 
-    private Observable<BaseOutPut<T>> loadFromNetwork(final String key, final Class<T> cls
-            , NetworkCache<T> networkCache) {
-        ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>> transformer = log("load from network: " + key);
+    private Observable<T> loadFromNetwork(final XinRequest<T> netRequest) {
+        ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>> transformer = log("load from network: " + netRequest.cachekey);
 
-        return networkCache.get(key, cls)
-                .compose(transformer)
+        return netRequest.reqObservable
+                .compose(transformer).compose(netRequest.<T>apiTransformer())
                 .doOnNext(new Consumer<BaseOutPut<T>>() {
                     @Override
-                    public void accept(BaseOutPut<T> t) throws Exception {
-                        if (null != t) {
-                            mDBCache.put(key, t, cls);
+                    public void accept(BaseOutPut<T> output) throws Exception {
+                        if (null != output) {
+                            mDBCache.put(netRequest.cachekey, output);
 
                         }
                     }
-                });
+                }).map(new OutputFunc<T>());
 
     }
 
@@ -79,6 +82,7 @@ public class CacheManager<T> {
         };
 
     }
+
 
     private static final class LazyHolder {
         static final CacheManager INSTANCE = new CacheManager<>();

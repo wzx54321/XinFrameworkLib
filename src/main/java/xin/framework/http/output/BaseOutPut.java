@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 作者：xin on 2018/6/7 0007 19:46
  * <p>
- * <p>公共返回数据源
+ * <p>公共返回数据源,根据与服务端协商好后定义自己的结构
  * <p>
  * <p>
  * <p>
@@ -17,6 +17,7 @@ import java.io.Serializable;
 
 public class BaseOutPut<T> implements Serializable  {
     private static final long serialVersionUID = 2097291210268505721L;
+
 
     private T data;
     private MetaBean  meta;
@@ -36,6 +37,9 @@ public class BaseOutPut<T> implements Serializable  {
     public void setData(T data) {
         this.data = data;
     }
+
+
+
 
     @Override
     public String toString() {

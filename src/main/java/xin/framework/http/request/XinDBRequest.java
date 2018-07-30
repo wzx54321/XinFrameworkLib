@@ -1,4 +1,4 @@
-package xin.framework.http.cache;
+package xin.framework.http.request;
 
 
 import android.text.TextUtils;
@@ -31,22 +31,22 @@ import xin.framework.utils.common.TypeUtil;
  * <p>
  * https://github.com/wzx54321/XinFrameworkLib
  */
-public class DBCache<T> implements ICache {
+public class XinDBRequest<T> {
 
 
     private HttpCacheBox mBox;
 
-    DBCache() {
+    public  XinDBRequest() {
         mBox = new HttpCacheBox();
     }
 
-    @Override
-    public Observable<BaseOutPut<T>> get(final String key, final Class cls) {
 
-        return Observable.create(new ObservableOnSubscribe<BaseOutPut<T>>() {
+    public Observable<T> get(final String key, final Type objectType) {
+
+        return Observable.create(new ObservableOnSubscribe<T>() {
             @SuppressWarnings("unchecked")
             @Override
-            public void subscribe(ObservableEmitter<BaseOutPut<T>> emitter) throws Exception {
+            public void subscribe(ObservableEmitter<T> emitter) throws Exception {
 
 
                 EntityHttpCache entity = mBox.getQueryBuilder().equal(EntityHttpCache_.host, key).build().findFirst();
@@ -54,22 +54,21 @@ public class DBCache<T> implements ICache {
                 if (entity == null || TextUtils.isEmpty(entity.getHost())) {
 
                     //noinspection unchecked
-                    emitter.onNext(BaseOutPut.class.newInstance());
+                    emitter.onNext(((Class<T>) objectType).newInstance());
 
                     Log.i("数据库 没有获取到缓存数据：");
                 } else {
-
-                    Type objectType = TypeUtil.type(BaseOutPut.class, cls);
-                    BaseOutPut t = new Gson().fromJson(entity.getData(), objectType);
+                    Type type = TypeUtil.type(BaseOutPut.class, objectType);
+                    BaseOutPut t = new Gson().fromJson(entity.getData(), type);
 
                     Log.i("数据库 获取到缓存数据：" + entity.getData());
-                    emitter.onNext(t);
+                    emitter.onNext((T) t.getData());
                 }
                 emitter.onComplete();
 
 
             }
-        } ).doOnSubscribe(new Consumer<Disposable>() {
+        }).doOnSubscribe(new Consumer<Disposable>() {
             @Override
             public void accept(Disposable subscription) throws Exception {
                 Log.i("cache-->load from disk: " + key);
@@ -78,19 +77,19 @@ public class DBCache<T> implements ICache {
 
     }
 
-    @Override
-    public void put(final String key, final BaseOutPut t, final Class cls) {
+
+    public void put(final String key, final BaseOutPut outPut) {
 
         Observable<BaseOutPut<T>> observable = Observable.create(new ObservableOnSubscribe<BaseOutPut<T>>() {
             @Override
-            public void subscribe(ObservableEmitter<BaseOutPut<T>> emitter) throws Exception {
+            public void subscribe(ObservableEmitter<BaseOutPut<T>> emitter) {
                 EntityHttpCache entity = mBox.getQueryBuilder().equal(EntityHttpCache_.host, key).build().findUnique();
                 if (entity == null) {
                     entity = new EntityHttpCache();
                     entity.setHost(key);
                 }
 
-                entity.setData(new Gson().toJson(t));
+                entity.setData(new Gson().toJson(outPut));
 
                 mBox.insert(entity);
                 Log.i("存缓存数据：" + entity.getData());
@@ -101,7 +100,8 @@ public class DBCache<T> implements ICache {
             public void accept(Disposable disposable) throws Exception {
                 Log.i("cache save to disk: " + key);
             }
-        }).compose(getScheduler()).delaySubscription(100, TimeUnit.MILLISECONDS);
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).delaySubscription(100, TimeUnit.MILLISECONDS);
         observable.subscribe();
 
 
@@ -110,12 +110,11 @@ public class DBCache<T> implements ICache {
 
     /**
      * 线程切换
-     *
      */
-    private ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>> getScheduler() {
-        return new ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>>() {
+    private ObservableTransformer<T, T> getScheduler() {
+        return new ObservableTransformer<T, T>() {
             @Override
-            public ObservableSource<BaseOutPut<T>> apply(Observable<BaseOutPut<T>> upstream) {
+            public ObservableSource<T> apply(Observable<T> upstream) {
                 return upstream.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
             }
