@@ -17,13 +17,13 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import xin.framework.http.helper.MediaTypes;
-import xin.framework.http.callback.XinReqCallback;
 import xin.framework.http.api.ApiService;
-import xin.framework.http.helper.HttpHelper;
-import xin.framework.http.output.BaseOutPut;
+import xin.framework.http.callback.XinReqCallback;
 import xin.framework.http.func.OutputFunc;
 import xin.framework.http.func.ResultFunc;
+import xin.framework.http.helper.HttpHelper;
+import xin.framework.http.helper.MediaTypes;
+import xin.framework.http.output.BaseOutPut;
 
 /**
  * 维护一些数据
@@ -42,33 +42,7 @@ public class XinRequest<T> {
     public Observable<BaseOutPut<T>> reqObservable;
 
 
-    public <T> ObservableTransformer<BaseOutPut<T>, T> apiTransformerMap() {
-        return new ObservableTransformer<BaseOutPut<T>, T>() {
-            @Override
-            public ObservableSource<T> apply(Observable<BaseOutPut<T>> apiResultObservable) {
-                return apiResultObservable
-                        .subscribeOn(Schedulers.io())
-                        /*  .unsubscribeOn(Schedulers.io())*/
-                        .map(new OutputFunc<T>())
-                        .observeOn(AndroidSchedulers.mainThread());
-                // .retryWhen(new ApiRetryFunc(retryCount, retryDelayMillis));
-            }
-        };
-    }
 
-
-    public ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>> apiTransformer() {
-        return new ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>>() {
-            @Override
-            public ObservableSource<BaseOutPut<T>> apply(Observable<BaseOutPut<T>> apiResultObservable) {
-                return apiResultObservable
-                        .subscribeOn(Schedulers.io())
-                        .unsubscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread());
-                // .retryWhen(new ApiRetryFunc(retryCount, retryDelayMillis));
-            }
-        };
-    }
 
 
     public static class Builder {
@@ -206,5 +180,35 @@ public class XinRequest<T> {
         }
 
 
+    }
+
+
+
+    public ObservableTransformer<BaseOutPut<T>, T> apiTransformerMap() {
+        return new ObservableTransformer<BaseOutPut<T>, T>() {
+            @Override
+            public ObservableSource<T> apply(Observable<BaseOutPut<T>> apiResultObservable) {
+                return apiResultObservable
+                        .subscribeOn(Schedulers.io())
+                        .unsubscribeOn(Schedulers.io())
+                        .map(new OutputFunc<T>())
+                        .observeOn(AndroidSchedulers.mainThread());
+                // .retryWhen(new ApiRetryFunc(retryCount, retryDelayMillis));
+            }
+        };
+    }
+
+
+    public ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>> apiTransformer() {
+        return new ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>>() {
+            @Override
+            public ObservableSource<BaseOutPut<T>> apply(Observable<BaseOutPut<T>> apiResultObservable) {
+                return apiResultObservable
+                        .subscribeOn(Schedulers.io())
+                        .unsubscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread());
+                // .retryWhen(new ApiRetryFunc(retryCount, retryDelayMillis));
+            }
+        };
     }
 }

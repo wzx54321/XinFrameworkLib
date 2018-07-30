@@ -26,43 +26,46 @@ import xin.framework.utils.android.Loger.Log;
 public class CacheManager<T> {
 
 
-    private final XinDBRequest<T> mDBCache;
+    private XinDBRequest<T> mDBCache;
 
-    public CacheManager() {
+    CacheManager() {
         mDBCache = new XinDBRequest<>();
     }
+
+    private static final class LazyHolder {
+        static final CacheManager INSTANCE = new CacheManager<>();
+    }
+
 
     public static CacheManager getInstance() {
         return LazyHolder.INSTANCE;
     }
 
-    public Observable<T> load(XinRequest<T> netRequest) {
+    public Observable<T> load(XinRequest<T> xinRequest) {
 
         return Observable.concat(
-                loadFromDB(netRequest),
-                loadFromNetwork(netRequest));
+                loadFromDB(xinRequest),
+                loadFromNetwork(xinRequest));
 
     }
 
 
-    private Observable<T> loadFromDB(XinRequest<T> netRequest) {
+    private Observable<T> loadFromDB(XinRequest<T> xinRequest) {
 
-       /* ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>> transformer =
-                log("load from disk: " + netRequest.cachekey);*/
 
-        return mDBCache.get(netRequest.cachekey, netRequest.rspClazz);
+        return mDBCache.get(xinRequest.cachekey, xinRequest.rspClazz);
     }
 
-    private Observable<T> loadFromNetwork(final XinRequest<T> netRequest) {
-        ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>> transformer = log("load from network: " + netRequest.cachekey);
+    private Observable<T> loadFromNetwork(final XinRequest<T> xinRequest) {
+        ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>> transformer = log("load from network: " + xinRequest.cachekey);
 
-        return netRequest.reqObservable
-                .compose(transformer).compose(netRequest.<T>apiTransformer())
+        return xinRequest.reqObservable
+                .compose(transformer).compose(xinRequest.<T>apiTransformer())
                 .doOnNext(new Consumer<BaseOutPut<T>>() {
                     @Override
                     public void accept(BaseOutPut<T> output) throws Exception {
                         if (null != output) {
-                            mDBCache.put(netRequest.cachekey, output);
+                            mDBCache.put(xinRequest.cachekey, output);
 
                         }
                     }
@@ -81,11 +84,6 @@ public class CacheManager<T> {
             }
         };
 
-    }
-
-
-    private static final class LazyHolder {
-        static final CacheManager INSTANCE = new CacheManager<>();
     }
 
 

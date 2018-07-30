@@ -11,18 +11,20 @@ import xin.framework.http.request.XinRequest;
  * <p>
  * 邮箱：ittfxin@126.com
  */
-public class Net {
-    XinRequest mXinRequest;
+public class Net<T> {
+    private XinRequest<T> mXinRequest;
 
 
-    public Net request(XinRequest xinRequest) {
+    public Net request(XinRequest<T> xinRequest) {
         mXinRequest = xinRequest;
         return this;
     }
 
+    @SuppressWarnings("unchecked")
     public void OK() {
 
-        XinRequestObserver observer = new XinRequestObserver(mXinRequest.reqCallback);
+        XinRequestObserver<T> observer = new XinRequestObserver<>(mXinRequest.reqCallback);
+
         if (TextUtils.isEmpty(mXinRequest.cachekey)) {
             mXinRequest.reqObservable.compose(mXinRequest.apiTransformerMap()).subscribe(observer);
         } else {
