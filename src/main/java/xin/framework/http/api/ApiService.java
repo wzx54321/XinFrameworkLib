@@ -1,7 +1,6 @@
 package xin.framework.http.api;
 
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +46,7 @@ public interface ApiService {
 
     @Streaming
     @GET()
-    Observable<ResponseBody> download(@Url String url, @QueryMap HashMap<String, String> queryMap);
+    Observable<ResponseBody> download(@Url String url,  @QueryMap  Map<String, String> queryMap);
 
     @Multipart
     @POST()

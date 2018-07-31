@@ -5,7 +5,7 @@
        如需要其他请求方法或需要更多缓存方式等其他动态配置需求，请扩展添加，或者邮件提出后续不断更新。
 
 
-----------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
  1.网络请求调用：
 
  通过 XinRequest.Builder 去构建一个XinNetRequest。再由NetWork请求调用如下
@@ -29,22 +29,45 @@
                                 //  异常处理
                               }
                           }).build()).OK();
-  2.下载文件调用：
+  2.下载文件调用如：
+           new Net().downFile(new DownloadRequest.Builder().
+                setLifecycleTransformer(lifecycleTransformer1).
+                setUrl("http://dldir1.qq.com/weixin/android/").
+                setSuffixUrl("weixin667android1320.apk").
+                setFile(FileConfig.getPublicFile(FileConfig.DIR_DOWNLOAD,Math.random()+".apk")).
+                setQueryParams(null).
+                setCallback(new DownUpCallback() {
+                    @Override
+                    public void progress(ProgressData progress) {
+                        Log.i("download progress       :--->" + progress.getFormatDownloadSize());
+                        Log.i("download progress Status:--->" + progress.getFormatStatusString());
+                        Log.i("download progress       :--->" + progress.getPercent());
+                    }
 
+                    @Override
+                    public void onStart() { Log.i(" download       :--->  开始" );  }
+
+                    @Override
+                    public void onDownComplete() {Log.i(" download       :--->  完成" );}
+
+                    @Override
+                    public void onError(int code, String details) {  Log.i(" download    onError   :--->   details" );  }
+                })
+                .build()
+
+        );
 
   3.上传文件调用：
+     ……未完待续
 
-new XinRequest.Builder().setBaseUrl(url).setSuffixUrl("homepage/info").
-                        setCacheKey(CacheKeyConfig.HOME_KEY).
-                        setFieldMap(map).
-                        setHeaders(headers).
-                        setRetryCount(3).
 
-----------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------
 
-  TODO 上传、下载
+  TODO 上传,  错误处理
 
-----------------------------------------------------------------------------------------------------------------------------------------
+  TODO 断点续传（待定）
+
+--------------------------------------------------------------------------------------------------------------------------
 
 
 

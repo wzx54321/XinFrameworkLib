@@ -19,7 +19,9 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import xin.framework.http.api.ApiService;
+import xin.framework.http.cache.CacheManager;
 import xin.framework.http.callback.XinReqCallback;
+import xin.framework.http.callback.XinRequestObserver;
 import xin.framework.http.func.OutputFunction;
 import xin.framework.http.func.ResultFunction;
 import xin.framework.http.func.RetryFunction;
@@ -46,6 +48,8 @@ public class XinRequest<T> {
     public int maxRetryCount;
     public int retryDelayMillis;
 
+    private XinRequest() {
+    }
 
     public static class Builder {
 
@@ -54,8 +58,8 @@ public class XinRequest<T> {
         XinReqCallback mReqCallback;
         LifecycleTransformer<ResponseBody> mLifecycleTransformer;
         String mBaseUrl;
-        String mCacheKey;
         String mSuffixUrl;
+        String mCacheKey;
         String mPostContent;
         MediaType mMediaType;
         Class mRspClazz;
@@ -227,5 +231,19 @@ public class XinRequest<T> {
                         .retryWhen(new RetryFunction(maxRetryCount, retryDelayMillis));
             }
         };
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    public void OK() {
+        XinRequestObserver<T> observer = new XinRequestObserver<>( reqCallback);
+
+        if (TextUtils.isEmpty( cachekey)) {
+             reqObservable.compose( apiTransformerMap()).subscribe(observer);
+        } else {
+            CacheManager.getInstance().load(this).subscribe(observer);
+        }
+
     }
 }

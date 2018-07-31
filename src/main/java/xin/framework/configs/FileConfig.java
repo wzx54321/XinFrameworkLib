@@ -15,7 +15,7 @@ import xin.framework.utils.common.utils.io.SdCardUtil;
 /**
  * Description : 文件路径配置
  * Created by xin on 2017/7/10 0010.
- *
+ * <p>
  * <p>
  * 邮箱：ittfxin@126.com
  * <p>
@@ -102,11 +102,17 @@ public class FileConfig {
         }
     }
 
+
+    public static File getPublicFile(String dirName, String fileName) {
+        return new File(getPublicDir(dirName),
+                fileName);
+    }
+
     public void init(final Activity activity, OnFileCreatedListener onFileCreatedListener) {
 
         mOnFileCreatedListener = onFileCreatedListener;
 
-        if ( SysUtils.hasLollipop()) {
+        if (SysUtils.hasLollipop()) {
 
             // 权限处理
             PermissionUtil.externalStorage(new PermissionUtil.RequestPermission() {
@@ -152,7 +158,7 @@ public class FileConfig {
 
     OnFileCreatedListener mOnFileCreatedListener;
 
-    public  interface OnFileCreatedListener {
+    public interface OnFileCreatedListener {
         void onCreated();
 
         void onFailure();

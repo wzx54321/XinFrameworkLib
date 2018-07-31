@@ -102,6 +102,17 @@ public abstract class HttpConfig {
     }
 
 
+    public OkHttpClient.Builder getOkBuilder() {
+        OkHttpClient.Builder builder = getCustomBuilder();
+
+        if (builder == null) {
+            builder = getDefaultBuilder();
+        }
+
+        return builder;
+    }
+
+
     /**
      * 获取OKHttp
      * <p>

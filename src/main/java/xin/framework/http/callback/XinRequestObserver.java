@@ -2,6 +2,7 @@ package xin.framework.http.callback;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import xin.framework.utils.android.Loger.Log;
 
 /**
  * 作者：xin on 2018/7/30 14:35
@@ -24,12 +25,15 @@ public class XinRequestObserver<T> implements Observer<T> {
     public void onNext(T data) {
         if (reqCallback != null) {
             reqCallback.onSuccess(data);
+        }else{
+            Log.i("没有设置回调callback：请检查是否传入callback");
         }
     }
 
     @Override
     public void onError(Throwable e) {
         // TODO 错误处理
+      //  reqCallback.onError();
     }
 
     @Override
