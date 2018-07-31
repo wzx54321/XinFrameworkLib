@@ -58,8 +58,7 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
 
         //  Device ID
         AppConfig.setDeviceId(app);
-        // init  CrashReport
-        CrashReportConfig.init(app);
+
 
         // 生命周期
         app.registerActivityLifecycleCallbacks(this);

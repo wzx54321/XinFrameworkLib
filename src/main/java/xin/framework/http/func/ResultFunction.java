@@ -3,6 +3,7 @@ package xin.framework.http.func;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,16 +15,15 @@ import io.reactivex.functions.Function;
 import okhttp3.ResponseBody;
 import xin.framework.http.output.BaseOutPut;
 import xin.framework.http.output.MetaBean;
+import xin.framework.utils.android.Loger.Log;
 
 /**
- * @Description: ResponseBody转ApiResult<T>
- * @author: <a href="http://www.xiaoyaoyou1212.com">DAWI</a>
- * @date: 2016-12-30 17:55
+ *  结果在这里转换
  */
-public class ResultFunc<T> implements Function<ResponseBody, BaseOutPut<T>> {
+public class ResultFunction<T> implements Function<ResponseBody, BaseOutPut<T>> {
     protected Type type;
 
-    public ResultFunc(Type type) {
+    public ResultFunction(Type type) {
         this.type = type;
     }
 
@@ -53,7 +53,7 @@ public class ResultFunc<T> implements Function<ResponseBody, BaseOutPut<T>> {
                 baseOutPut.getMeta().setMessageX("json is null");
             }
         } catch (JSONException | IOException e) {
-            e.printStackTrace();
+            Log.e(e,"ResultFunction");
             baseOutPut.getMeta().setMessageX(e.getMessage());
         } finally {
             responseBody.close();
@@ -63,6 +63,16 @@ public class ResultFunc<T> implements Function<ResponseBody, BaseOutPut<T>> {
 
     private BaseOutPut parseApiResult(String json, BaseOutPut outPut) throws JSONException {
         if (TextUtils.isEmpty(json)) return null;
+
+        if(!isJSON(json)){
+            outPut.setData(json);
+            MetaBean metaBean = new MetaBean();
+            metaBean.setCodeX(0);
+            metaBean.setMessageX("返回数据不是json类型");
+            outPut.setMeta(metaBean);
+            return outPut;
+        }
+
         JSONObject jsonObject = new JSONObject(json);
         if (jsonObject.has("data")) {
             outPut.setData(jsonObject.getString("data"));
@@ -80,5 +90,17 @@ public class ResultFunc<T> implements Function<ResponseBody, BaseOutPut<T>> {
             outPut.setMeta(metaBean);
         }
         return outPut;
+    }
+
+
+
+
+    public final static boolean isJSON(String jsonStr) {
+        try {
+            new Gson().fromJson(jsonStr,Object.class);
+            return true;
+        } catch(JsonSyntaxException ex) {
+            return false;
+        }
     }
 }

@@ -7,7 +7,7 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Consumer;
 import xin.framework.http.output.BaseOutPut;
 import xin.framework.http.request.XinRequest;
-import xin.framework.http.func.OutputFunc;
+import xin.framework.http.func.OutputFunction;
 import xin.framework.http.request.XinDBRequest;
 import xin.framework.utils.android.Loger.Log;
 
@@ -63,13 +63,13 @@ public class CacheManager<T> {
                 .compose(transformer).compose(xinRequest.<T>apiTransformer())
                 .doOnNext(new Consumer<BaseOutPut<T>>() {
                     @Override
-                    public void accept(BaseOutPut<T> output) throws Exception {
+                    public void accept(BaseOutPut<T> output) {
                         if (null != output) {
                             mDBCache.put(xinRequest.cachekey, output);
 
                         }
                     }
-                }).map(new OutputFunc<T>());
+                }).map(new OutputFunction<T>());
 
     }
 

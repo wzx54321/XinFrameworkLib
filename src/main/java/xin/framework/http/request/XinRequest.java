@@ -6,6 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -19,8 +20,9 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import xin.framework.http.api.ApiService;
 import xin.framework.http.callback.XinReqCallback;
-import xin.framework.http.func.OutputFunc;
-import xin.framework.http.func.ResultFunc;
+import xin.framework.http.func.OutputFunction;
+import xin.framework.http.func.ResultFunction;
+import xin.framework.http.func.RetryFunction;
 import xin.framework.http.helper.HttpHelper;
 import xin.framework.http.helper.MediaTypes;
 import xin.framework.http.output.BaseOutPut;
@@ -41,8 +43,8 @@ public class XinRequest<T> {
 
     public Observable<BaseOutPut<T>> reqObservable;
 
-
-
+    public int maxRetryCount;
+    public int retryDelayMillis;
 
 
     public static class Builder {
@@ -57,8 +59,10 @@ public class XinRequest<T> {
         String mPostContent;
         MediaType mMediaType;
         Class mRspClazz;
-        Map<String, String> mHeaders;
+        Map<String, String> mHeaders=new HashMap<>();
 
+        public int mRetryCount = 0;
+        public int mRetryDelayMillis = 1000;
 
         public Builder setBaseUrl(String mBaseUrl) {
             this.mBaseUrl = mBaseUrl;
@@ -100,6 +104,16 @@ public class XinRequest<T> {
         public Builder setPostJson(JsonArray jsonArray) {
             this.mPostContent = jsonArray.toString();
             this.mMediaType = MediaTypes.APPLICATION_JSON_TYPE;
+            return this;
+        }
+
+        public Builder setRetryCount(int count) {
+            this.mRetryCount = count;
+            return this;
+        }
+
+        public Builder setRetryDelay(int millis) {
+            this.mRetryDelayMillis = millis;
             return this;
         }
 
@@ -159,6 +173,10 @@ public class XinRequest<T> {
             xinRequest.rspClazz = mRspClazz;
 
             xinRequest.cachekey = mCacheKey;
+            xinRequest.retryDelayMillis = mRetryDelayMillis;
+            xinRequest.maxRetryCount = mRetryCount;
+
+
             Observable<ResponseBody> reqObservable;
             if (mQueryMap != null) {
                 reqObservable = apiService.get(suffixUrl, mQueryMap);
@@ -170,9 +188,9 @@ public class XinRequest<T> {
                 reqObservable = apiService.get(suffixUrl, mHeaders);
             }
             if (mLifecycleTransformer != null) {
-                xinRequest.reqObservable = reqObservable.compose(mLifecycleTransformer).map(new ResultFunc<>(mRspClazz));
+                xinRequest.reqObservable = reqObservable.compose(mLifecycleTransformer).map(new ResultFunction<>(mRspClazz));
             } else {
-                xinRequest.reqObservable = reqObservable.map(new ResultFunc<>(mRspClazz));
+                xinRequest.reqObservable = reqObservable.map(new ResultFunction<>(mRspClazz));
             }
 
             return xinRequest;
@@ -183,7 +201,6 @@ public class XinRequest<T> {
     }
 
 
-
     public ObservableTransformer<BaseOutPut<T>, T> apiTransformerMap() {
         return new ObservableTransformer<BaseOutPut<T>, T>() {
             @Override
@@ -191,9 +208,9 @@ public class XinRequest<T> {
                 return apiResultObservable
                         .subscribeOn(Schedulers.io())
                         .unsubscribeOn(Schedulers.io())
-                        .map(new OutputFunc<T>())
-                        .observeOn(AndroidSchedulers.mainThread());
-                // .retryWhen(new ApiRetryFunc(retryCount, retryDelayMillis));
+                        .map(new OutputFunction<T>())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .retryWhen(new RetryFunction(maxRetryCount, retryDelayMillis));
             }
         };
     }
@@ -206,8 +223,8 @@ public class XinRequest<T> {
                 return apiResultObservable
                         .subscribeOn(Schedulers.io())
                         .unsubscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread());
-                // .retryWhen(new ApiRetryFunc(retryCount, retryDelayMillis));
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .retryWhen(new RetryFunction(maxRetryCount, retryDelayMillis));
             }
         };
     }

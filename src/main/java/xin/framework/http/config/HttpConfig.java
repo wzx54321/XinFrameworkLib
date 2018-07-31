@@ -15,7 +15,7 @@ import xin.framework.http.interceptor.HttpLog;
 
 
 /**
- *  网络请求配置抽象
+ * 网络请求配置抽象
  * Created by xin
  * <p>
  * 邮箱：ittfxin@126.com
@@ -27,6 +27,7 @@ public abstract class HttpConfig {
 
     private OkHttpClient httpClient;
     private static final long DEFAULT_MILLISECONDS = 60000; // 默认时间
+
 
     /**
      * 获取默认的{@link OkHttpClient.Builder}
@@ -118,7 +119,6 @@ public abstract class HttpConfig {
     public void setHttpClient(OkHttpClient httpClient) {
         this.httpClient = httpClient;
     }
-
 
 
     /**

@@ -53,7 +53,7 @@ public class XinDBRequest<T> {
 
                 if (entity == null || TextUtils.isEmpty(entity.getHost())) {
 
-                    //noinspection unchecked
+
                     emitter.onNext(((Class<T>) objectType).newInstance());
 
                     Log.i("数据库 没有获取到缓存数据：");

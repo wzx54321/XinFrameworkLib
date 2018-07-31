@@ -8,8 +8,8 @@ import xin.framework.http.output.BaseOutPut;
  * @Description: ApiResult<T>转T
 
  */
-public class OutputFunc<T> implements Function<BaseOutPut<T>, T> {
-    public OutputFunc() {
+public class OutputFunction<T> implements Function<BaseOutPut<T>, T> {
+    public OutputFunction() {
     }
 
     @Override
