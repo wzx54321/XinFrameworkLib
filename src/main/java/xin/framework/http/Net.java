@@ -27,9 +27,9 @@ public class Net {
 
 
     /**
-     * 文件下载
+     * 文件上传
      */
-    public void uplodFile(UploadRequest request) {
+    public void uploadFile(UploadRequest request) {
         request.OK();
     }
 

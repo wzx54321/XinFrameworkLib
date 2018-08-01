@@ -63,7 +63,7 @@
             headersUpload.put("Accept", "application/json");
             headersUpload.put("Accept-Encoding", "gzip");
             headersUpload.put("connection", "alive");
-            new Net().uplodFile(new UploadRequest.Builder().
+            new Net().uploadFile(new UploadRequest.Builder().
                             setBaseUrl("url...").
                             setHeaders(headersUpload).
                             addFile("file", new File("/storage/emulated/0/12345.jpg"),
