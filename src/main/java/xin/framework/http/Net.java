@@ -1,7 +1,7 @@
 package xin.framework.http;
 
-import xin.framework.http.callback.DownUpCallback;
 import xin.framework.http.request.DownloadRequest;
+import xin.framework.http.request.UploadRequest;
 import xin.framework.http.request.XinRequest;
 
 /**
@@ -14,24 +14,23 @@ public class Net {
     /**
      * 网络请求
      */
-    public <T> void request(XinRequest<T> xinRequest) {
-        xinRequest.OK();
+    public <T> void request(XinRequest<T> request) {
+        request.OK();
     }
 
     /**
      * 文件下载
      */
-    public void downFile(DownloadRequest downloadInfo) {
-        downloadInfo.OK();
+    public void downFile(DownloadRequest request) {
+        request.OK();
     }
-
 
 
     /**
      * 文件下载
      */
-    public void uplodFile(DownloadRequest downloadInfo, DownUpCallback callback) {
-        // TODO 上传文件
+    public void uplodFile(UploadRequest request) {
+        request.OK();
     }
 
 

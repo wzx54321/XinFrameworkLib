@@ -48,7 +48,7 @@
                     public void onStart() { Log.i(" download       :--->  开始" );  }
 
                     @Override
-                    public void onDownComplete() {Log.i(" download       :--->  完成" );}
+                    public void onComplete() {Log.i(" download       :--->  完成" );}
 
                     @Override
                     public void onError(int code, String details) {  Log.i(" download    onError   :--->   details" );  }
@@ -58,12 +58,54 @@
         );
 
   3.上传文件调用：
-     ……未完待续
+     final Map<String, String> headersUpload = new HashMap<>();
+            headersUpload.put("key", "");
+            headersUpload.put("Accept", "application/json");
+            headersUpload.put("Accept-Encoding", "gzip");
+            headersUpload.put("connection", "alive");
+            new Net().uplodFile(new UploadRequest.Builder().
+                            setBaseUrl("url...").
+                            setHeaders(headersUpload).
+                            addFile("file", new File("/storage/emulated/0/12345.jpg"),
+                                    new DownUpCallback() {
+                                        @Override
+                                        public void progress(ProgressData progress) {
+                                            Log.i(progress.getPercent());
+                                        }
+
+                                        @Override
+                                        public void onStart() {
+                                            Log.i("上传 onStart");
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+                                            Log.i("上传 完成");
+                                        }
+
+                                        @Override
+                                        public void onError(int code, String details) {
+                                            Log.i("上传错误：" + details);
+                                        }
+                                    }).setRepCallback(String.class, new XinReqCallback<String>() {
+                        @Override
+                        public void onSuccess(String str) {
+                            Log.i(str);
+                        }
+
+                        @Override
+                        public void onError(int code, String details) {
+                            Log.i(details);
+                        }
+                    }).build()
+
+
+            );
 
 
 --------------------------------------------------------------------------------------------------------------------------
 
-  TODO 上传,  错误处理
+  TODO  错误处理
 
   TODO 断点续传（待定）
 

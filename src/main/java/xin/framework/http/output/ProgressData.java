@@ -86,11 +86,11 @@ public class ProgressData {
 
 
     /**
-     * 是否下载完成
+     * 是否完成
      *
      * @return
      */
-    public boolean isDownComplete() {
+    public boolean isComplete() {
         return currentSize == totalSize;
     }
 

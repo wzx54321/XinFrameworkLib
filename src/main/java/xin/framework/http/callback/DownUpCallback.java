@@ -17,8 +17,8 @@ public abstract class DownUpCallback implements XinReqCallback<ProgressData> {
     @Override
     public void onSuccess(@NonNull ProgressData progress) {
 
-        if (progress.isDownComplete()) {
-            onDownComplete();
+        if (progress.isComplete()) {
+            onComplete();
         }else{
             progress(progress);
         }
@@ -29,5 +29,5 @@ public abstract class DownUpCallback implements XinReqCallback<ProgressData> {
 
     public abstract void onStart();
 
-    public abstract void onDownComplete();
+    public abstract void onComplete();
 }

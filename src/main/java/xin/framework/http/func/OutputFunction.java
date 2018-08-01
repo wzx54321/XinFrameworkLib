@@ -13,7 +13,7 @@ public class OutputFunction<T> implements Function<BaseOutPut<T>, T> {
     }
 
     @Override
-    public T apply(BaseOutPut<T> response) throws Exception {
+    public T apply(BaseOutPut<T> response) {
 
             return response.getData();
 
