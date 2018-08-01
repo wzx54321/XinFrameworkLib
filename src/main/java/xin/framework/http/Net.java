@@ -21,7 +21,7 @@ public class Net {
     /**
      * 文件下载
      */
-    public void downFile(DownloadRequest request) {
+    public void downloadFile(DownloadRequest request) {
         request.OK();
     }
 

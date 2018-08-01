@@ -30,7 +30,7 @@
                               }
                           }).build()).OK();
   2.下载文件调用如：
-           new Net().downFile(new DownloadRequest.Builder().
+           new Net().downloadFile(new DownloadRequest.Builder().
                 setLifecycleTransformer(lifecycleTransformer1).
                 setUrl("http://dldir1.qq.com/weixin/android/").
                 setSuffixUrl("weixin667android1320.apk").
