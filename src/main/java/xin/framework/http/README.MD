@@ -64,11 +64,12 @@
 #### 3.上传文件调用如：
 通过 UploadRequest.Builder UploadRequest,请求调用如下:
   ```
-     final Map<String, String> headersUpload = new HashMap<>();
+            final Map<String, String> headersUpload = new HashMap<>();
             headersUpload.put("key", "");
             headersUpload.put("Accept", "application/json");
             headersUpload.put("Accept-Encoding", "gzip");
             headersUpload.put("connection", "alive");
+            
             new Net().uploadFile(new UploadRequest.Builder().
                             setBaseUrl("url...").
                             setHeaders(headersUpload).
