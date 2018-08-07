@@ -29,7 +29,7 @@ public class FileConfig {
     /**
      * 应用程序在SDCARD中的根目录，/mnt/sdcard/
      */
-    public static String DIR_PUBLIC_ROOT = "Guojiadianwang";
+    public static String DIR_PUBLIC_ROOT = "xinFramework";
 
     /**
      * 崩溃日志存储目录

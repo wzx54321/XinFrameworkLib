@@ -5,7 +5,7 @@
 
 
 
-###### 整体结构：RXJAVA + Retrofit 2.0 + ObjectBox + MVP
+###### 整体结构：RxJAVA + Retrofit 2.0 + ObjectBox + MVP
 
 
 ###  使用方法：

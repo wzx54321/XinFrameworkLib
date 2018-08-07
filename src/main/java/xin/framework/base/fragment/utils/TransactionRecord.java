@@ -13,7 +13,7 @@ public final class TransactionRecord {
     public int targetFragmentExit = Integer.MIN_VALUE;
     public int currentFragmentPopExit = Integer.MIN_VALUE;
     public int currentFragmentPopEnter = Integer.MIN_VALUE;
-    public boolean dontAddToBackStack = false;
+    public boolean unAddToBackStack = false;
     public ArrayList<SharedElement> sharedElementList;
 
     public static class SharedElement {
@@ -22,7 +22,7 @@ public final class TransactionRecord {
 
         public SharedElement(View sharedElement, String sharedName) {
             this.sharedElement = sharedElement;
-            this.sharedName = sharedName;
+            this.sharedName  = sharedName;
         }
     }
 }

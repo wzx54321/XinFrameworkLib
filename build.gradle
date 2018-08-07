@@ -33,7 +33,7 @@ dependencies {
         exclude module: 'rxjava'
         exclude module: 'support-annotations'
     }
-    // RXJAVA
+    // RX JAVA
     compile var.rxjava2
     compile var.rxandroid2
     // retrofit

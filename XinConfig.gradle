@@ -31,14 +31,14 @@ ext {
             objectbox               : "io.objectbox:objectbox-gradle-plugin:${sdkVersion.objectboxVersion}",
             // 权限
             rxpermissions2          : "com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar",
-            // RXJAVA2
+            // RX JAVA2
             rxandroid2              : "io.reactivex.rxjava2:rxandroid:${sdkVersion.rxandroid2}",
             rxjava2                 : "io.reactivex.rxjava2:rxjava:${sdkVersion.rxjava2}",
             // Retrofit2
             retrofit                : "com.squareup.retrofit2:retrofit:${sdkVersion.retrofitVersion}",
             retrofit_adapter_rxjava2: "com.squareup.retrofit2:adapter-rxjava2:${sdkVersion.retrofitVersion}",
             retrofit_converter_gson : "com.squareup.retrofit2:converter-gson:${sdkVersion.retrofitVersion}",
-            // rxlifecycle生命周期管理
+            // rx lifecycle生命周期管理
             rxlifecycle             : "com.trello.rxlifecycle2:rxlifecycle:${sdkVersion.VRxlifecycle}",
             rxlifecycle_android     : "com.trello.rxlifecycle2:rxlifecycle-android:${sdkVersion.VRxlifecycle}",
             rxlifecycle_components  : "com.trello.rxlifecycle2:rxlifecycle-components:${sdkVersion.VRxlifecycle}",

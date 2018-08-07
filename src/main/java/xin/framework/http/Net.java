@@ -2,7 +2,7 @@ package xin.framework.http;
 
 import xin.framework.http.request.DownloadRequest;
 import xin.framework.http.request.UploadRequest;
-import xin.framework.http.request.XinRequest;
+import xin.framework.http.request.NetRequest;
 
 /**
  * 作者：xin on 2018/7/27 18:24
@@ -14,7 +14,7 @@ public class Net {
     /**
      * 网络请求
      */
-    public <T> void request(XinRequest<T> request) {
+    public <T> void request(NetRequest<T> request) {
         request.OK();
     }
 

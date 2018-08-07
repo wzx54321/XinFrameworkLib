@@ -35,7 +35,7 @@ import xin.framework.http.output.BaseOutPut;
  * <p>
  * 邮箱：ittfxin@126.com
  */
-public class XinRequest<T> {
+public class NetRequest<T> {
     // url
     public String baseUrl;
     public String cachekey;
@@ -48,153 +48,158 @@ public class XinRequest<T> {
     public int maxRetryCount;
     public int retryDelayMillis;
 
-    private XinRequest() {
+    private NetRequest() {
     }
 
     public static class Builder {
 
-        Map<String, Object> mFieldMap;
-        Map<String, String> mQueryMap;
-        XinReqCallback mReqCallback;
-        LifecycleTransformer<ResponseBody> mLifecycleTransformer;
-        String mBaseUrl;
-        String mSuffixUrl;
-        String mCacheKey;
-        String mPostContent;
-        MediaType mMediaType;
-        Class mRspClazz;
-        Map<String, String> mHeaders=new HashMap<>();
+        Map<String, Object> fieldMap;
+        Map<String, String> queryMap;
+        XinReqCallback xinReqCallback;
+        LifecycleTransformer<ResponseBody> lifecycleTransformer;
+        String baseUrl;
+        String suffixUrl;
+        String cacheKey;
+        String postContent;
+        MediaType mediaType;
+        Class aClass;
+        Map<String, String> headers = new HashMap<>();
 
-        public int mRetryCount = 0;
-        public int mRetryDelayMillis = 1000;
+        public int retryCount = 0;
+        public int retryDelayMillis = 1000;
 
         public Builder setBaseUrl(String mBaseUrl) {
-            this.mBaseUrl = mBaseUrl;
+            this.baseUrl = mBaseUrl;
 
             return this;
         }
 
         public Builder setSuffixUrl(String mSuffixUrl) {
-            this.mSuffixUrl = mSuffixUrl;
+            this.suffixUrl = mSuffixUrl;
             return this;
         }
 
 
         public Builder setPostContent(String postContent, MediaType mediaType) {
-            this.mPostContent = postContent;
-            this.mMediaType = mediaType;
+            this.postContent = postContent;
+            this.mediaType = mediaType;
             return this;
         }
 
         public Builder setPostStringContent(String postContent) {
-            this.mPostContent = postContent;
-            this.mMediaType = MediaTypes.TEXT_PLAIN_TYPE;
+            this.postContent = postContent;
+            this.mediaType = MediaTypes.TEXT_PLAIN_TYPE;
             return this;
         }
 
 
         public Builder setPostJsonContent(String postContent) {
-            this.mPostContent = postContent;
-            this.mMediaType = MediaTypes.APPLICATION_JSON_TYPE;
+            this.postContent = postContent;
+            this.mediaType = MediaTypes.APPLICATION_JSON_TYPE;
             return this;
         }
 
         public Builder setPostJson(JsonObject json) {
-            this.mPostContent = json.toString();
-            this.mMediaType = MediaTypes.APPLICATION_JSON_TYPE;
+            this.postContent = json.toString();
+            this.mediaType = MediaTypes.APPLICATION_JSON_TYPE;
             return this;
         }
 
         public Builder setPostJson(JsonArray jsonArray) {
-            this.mPostContent = jsonArray.toString();
-            this.mMediaType = MediaTypes.APPLICATION_JSON_TYPE;
+            this.postContent = jsonArray.toString();
+            this.mediaType = MediaTypes.APPLICATION_JSON_TYPE;
             return this;
         }
 
         public Builder setRetryCount(int count) {
-            this.mRetryCount = count;
+            this.retryCount = count;
             return this;
         }
 
         public Builder setRetryDelay(int millis) {
-            this.mRetryDelayMillis = millis;
+            this.retryDelayMillis = millis;
             return this;
         }
 
         public Builder setCacheKey(String cacheKey) {
-            mCacheKey = cacheKey;
+            this.cacheKey = cacheKey;
             return this;
         }
 
 
         public Builder addQueryParam(String key, String value) {
-            if (mQueryMap == null) {
-                mQueryMap = new LinkedHashMap<>();
+            if (queryMap == null) {
+                queryMap = new LinkedHashMap<>();
             }
-            mQueryMap.put(key, value);
+            queryMap.put(key, value);
             return this;
         }
 
 
         public Builder setFieldMap(Map<String, Object> map) {
-            mFieldMap = map;
+            fieldMap = map;
             return this;
         }
 
 
         public Builder setListener(Class clazz, XinReqCallback xinReqCallback) {
-            mReqCallback = xinReqCallback;
-            mRspClazz = clazz;
+            this.xinReqCallback = xinReqCallback;
+            aClass = clazz;
             return this;
         }
 
 
         public Builder setLifecycleTransformer(LifecycleTransformer<ResponseBody> transformer) {
-            this.mLifecycleTransformer = transformer;
+            this.lifecycleTransformer = transformer;
             return this;
         }
 
 
         public Builder setHeaders(Map<String, String> headers) {
-            this.mHeaders = headers;
+            this.headers = headers;
             return this;
         }
 
 
-        public XinRequest build() {
-            XinRequest xinRequest = new XinRequest();
-            if (TextUtils.isEmpty(mBaseUrl)) {
-                throw new NullPointerException("  request need a baseUrl");
+        public NetRequest build() {
+            NetRequest xinRequest = new NetRequest();
+            xinRequest.reqCallback = xinReqCallback;
+            if (TextUtils.isEmpty(baseUrl)) {
+                if(xinReqCallback ==null){
+                    throw new NullPointerException("baseUrl  不能为空");
+                }else {
+                    xinReqCallback.onError(-100,"baseUrl  不能为空");
+                }
             }
-            ApiService apiService = HttpHelper.getInstance().getRetrofit(mBaseUrl).create(ApiService.class);
+            ApiService apiService = HttpHelper.getInstance().getRetrofit(baseUrl).create(ApiService.class);
 
             // url
-            xinRequest.baseUrl = mBaseUrl;
-            String suffixUrl = TextUtils.isEmpty(mSuffixUrl) ? "" : mSuffixUrl;
+            xinRequest.baseUrl = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
+            String suffixUrl = TextUtils.isEmpty(this.suffixUrl) ? "" : this.suffixUrl;
 
             // callback
-            xinRequest.reqCallback = mReqCallback;
-            xinRequest.rspClazz = mRspClazz;
+            xinRequest.reqCallback = xinReqCallback;
+            xinRequest.rspClazz = aClass;
 
-            xinRequest.cachekey = mCacheKey;
-            xinRequest.retryDelayMillis = mRetryDelayMillis;
-            xinRequest.maxRetryCount = mRetryCount;
+            xinRequest.cachekey = cacheKey;
+            xinRequest.retryDelayMillis = retryDelayMillis;
+            xinRequest.maxRetryCount = retryCount;
 
 
             Observable<ResponseBody> reqObservable;
-            if (mQueryMap != null) {
-                reqObservable = apiService.get(suffixUrl, mQueryMap);
-            } else if (!TextUtils.isEmpty(mPostContent) && mMediaType != null) {
-                reqObservable = apiService.post(suffixUrl, RequestBody.create(mMediaType, mPostContent), mHeaders);
-            } else if (mFieldMap != null) {
-                reqObservable = apiService.postForm(suffixUrl, mFieldMap, mHeaders);
+            if (queryMap != null) {
+                reqObservable = apiService.get(suffixUrl, queryMap);
+            } else if (!TextUtils.isEmpty(postContent) && mediaType != null) {
+                reqObservable = apiService.post(suffixUrl, RequestBody.create(mediaType, postContent), headers);
+            } else if (fieldMap != null) {
+                reqObservable = apiService.postForm(suffixUrl, fieldMap, headers);
             } else {
-                reqObservable = apiService.get(suffixUrl, mHeaders);
+                reqObservable = apiService.get(suffixUrl, headers);
             }
-            if (mLifecycleTransformer != null) {
-                xinRequest.reqObservable = reqObservable.compose(mLifecycleTransformer).map(new ResultFunction<>(mRspClazz));
+            if (lifecycleTransformer != null) {
+                xinRequest.reqObservable = reqObservable.compose(lifecycleTransformer).map(new ResultFunction<>(aClass));
             } else {
-                xinRequest.reqObservable = reqObservable.map(new ResultFunction<>(mRspClazz));
+                xinRequest.reqObservable = reqObservable.map(new ResultFunction<>(aClass));
             }
 
             return xinRequest;
@@ -234,13 +239,12 @@ public class XinRequest<T> {
     }
 
 
-
     @SuppressWarnings("unchecked")
     public void OK() {
-        XinRequestObserver<T> observer = new XinRequestObserver<>( reqCallback);
+        XinRequestObserver<T> observer = new XinRequestObserver<>(reqCallback);
 
-        if (TextUtils.isEmpty( cachekey)) {
-             reqObservable.compose( apiTransformerMap()).subscribe(observer);
+        if (TextUtils.isEmpty(cachekey)) {
+            reqObservable.compose(apiTransformerMap()).subscribe(observer);
         } else {
             CacheManager.getInstance().load(this).subscribe(observer);
         }

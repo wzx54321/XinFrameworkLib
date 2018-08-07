@@ -34,7 +34,7 @@ public class XinFragmentUtils {
     static final int TYPE_REPLACE = 10;
     static final int TYPE_ADD_RESULT = 2;
     static final int TYPE_ADD_WITHOUT_HIDE = 3;
-    static final int TYPE_REPLACE_DONT_BACK = 14;
+    static final int TYPE_REPLACE_DO_NOT_BACK = 14;
 
     static final int STATUS_UN_ROOT = 0;
     static final int STATUS_ROOT_ANIM_DISABLE = 1;
@@ -197,7 +197,7 @@ public class XinFragmentUtils {
             }
         }
 
-        if (!unAddToBackStack && type != TYPE_REPLACE_DONT_BACK) {
+        if (!unAddToBackStack && type != TYPE_REPLACE_DO_NOT_BACK) {
             ft.addToBackStack(toFragmentTag);
         }
         supportCommit(fragmentManager, ft);

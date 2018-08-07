@@ -8,10 +8,10 @@
 ---------------------------------------------------------------------------------------------------------------------------
 #### 1.网络请求调用：
 
- 通过 XinRequest.Builder 去构建一个XinRequest,请求调用如下:
+ 通过 NetRequest.Builder NetRequest,请求调用如下:
 ```
    new Net().request(
-                  new XinRequest.Builder().setBaseUrl(url).setSuffixUrl("homepage/info").
+                  new NetRequest.Builder().setBaseUrl(url).setSuffixUrl("homepage/info").
                           setCacheKey(CacheKeyConfig.HOME_KEY)./* 缓存的唯一的KEY,如果没有设置视为无缓存处理 */
                           setFieldMap(map)./* 构造参数 */
                           setHeaders(headers)./* 动态构造头数据 */

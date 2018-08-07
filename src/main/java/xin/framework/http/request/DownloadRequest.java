@@ -103,7 +103,7 @@ public class DownloadRequest {
             }
 
 
-            downloadInfo.baseUrl = baseUrl;
+            downloadInfo.baseUrl = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
             downloadInfo.suffixUrl = TextUtils.isEmpty(suffixUrl) ? "" : suffixUrl;
             if (file == null) {
                 throw new NullPointerException("下载文件不能为空");

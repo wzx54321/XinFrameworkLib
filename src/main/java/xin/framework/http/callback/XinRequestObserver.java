@@ -25,15 +25,15 @@ public class XinRequestObserver<T> implements Observer<T> {
     public void onNext(T data) {
         if (reqCallback != null) {
             reqCallback.onSuccess(data);
-        }else{
+        } else {
             Log.i("没有设置回调callback：请检查是否传入callback");
         }
     }
 
     @Override
     public void onError(Throwable e) {
-        // TODO 错误处理
-      //  reqCallback.onError();
+        if (reqCallback != null)
+            reqCallback.onError(-100, e.getMessage());
     }
 
     @Override

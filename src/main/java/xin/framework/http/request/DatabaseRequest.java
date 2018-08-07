@@ -31,12 +31,12 @@ import xin.framework.utils.common.TypeUtil;
  * <p>
  * https://github.com/wzx54321/XinFrameworkLib
  */
-public class XinDBRequest<T> {
+public class DatabaseRequest<T> {
 
 
     private HttpCacheBox mBox;
 
-    public  XinDBRequest() {
+    public DatabaseRequest() {
         mBox = new HttpCacheBox();
     }
 

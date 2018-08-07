@@ -169,7 +169,7 @@ public class StatusBarUtil {
      * http://dev.xiaomi.com/doc/p=4769/
      */
     @SuppressWarnings("UnusedReturnValue")
-    private static boolean darkModeForMIUI6(Window window, boolean darkmode) {
+    private static boolean darkModeForMIUI6(Window window, boolean darkMode) {
         Class<? extends Window> clazz = window.getClass();
         try {
             int darkModeFlag;
@@ -177,7 +177,7 @@ public class StatusBarUtil {
             Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
             darkModeFlag = field.getInt(layoutParams);
             Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
-            extraFlagField.invoke(window, darkmode ? darkModeFlag : 0, darkModeFlag);
+            extraFlagField.invoke(window, darkMode ? darkModeFlag : 0, darkModeFlag);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

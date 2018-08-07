@@ -191,9 +191,13 @@ public class UploadRequest<T> {
 
         public UploadRequest build() {
             UploadRequest uploadRequest = new UploadRequest();
-
+            uploadRequest.callback = callback;
             if (TextUtils.isEmpty(baseUrl)) {
-                throw new NullPointerException("baseUrl  不能为空");
+                if(callback==null){
+                    throw new NullPointerException("baseUrl  不能为空");
+                }else {
+                    callback.onError(-100,"baseUrl  不能为空");
+                }
             }
             uploadRequest.baseUrl = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
 
@@ -201,13 +205,18 @@ public class UploadRequest<T> {
 
 
             if (parts == null) {
-                throw new NullPointerException("请添加上传的文件数据");
+                if(callback==null){
+                    throw new NullPointerException("请添加上传的文件数据");
+                }else {
+                    callback.onError(-100,"请添加上传的文件数据");
+                }
             }
+
             uploadRequest.parts = parts;
 
             uploadRequest.rspClazz = rspClazz;
 
-            uploadRequest.callback = callback;
+
 
             uploadRequest.headers = headers;
 

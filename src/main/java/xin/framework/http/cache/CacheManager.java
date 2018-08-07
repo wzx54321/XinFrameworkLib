@@ -6,9 +6,9 @@ import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Consumer;
 import xin.framework.http.output.BaseOutPut;
-import xin.framework.http.request.XinRequest;
+import xin.framework.http.request.NetRequest;
 import xin.framework.http.func.OutputFunction;
-import xin.framework.http.request.XinDBRequest;
+import xin.framework.http.request.DatabaseRequest;
 import xin.framework.utils.android.Loger.Log;
 
 
@@ -26,10 +26,10 @@ import xin.framework.utils.android.Loger.Log;
 public class CacheManager<T> {
 
 
-    private XinDBRequest<T> mDBCache;
+    private DatabaseRequest<T> mDBCache;
 
     CacheManager() {
-        mDBCache = new XinDBRequest<>();
+        mDBCache = new DatabaseRequest<>();
     }
 
     private static final class LazyHolder {
@@ -41,7 +41,7 @@ public class CacheManager<T> {
         return LazyHolder.INSTANCE;
     }
 
-    public Observable<T> load(XinRequest<T> xinRequest) {
+    public Observable<T> load(NetRequest<T> xinRequest) {
 
         return Observable.concat(
                 loadFromDB(xinRequest),
@@ -50,13 +50,13 @@ public class CacheManager<T> {
     }
 
 
-    private Observable<T> loadFromDB(XinRequest<T> xinRequest) {
+    private Observable<T> loadFromDB(NetRequest<T> xinRequest) {
 
 
         return mDBCache.get(xinRequest.cachekey, xinRequest.rspClazz);
     }
 
-    private Observable<T> loadFromNetwork(final XinRequest<T> xinRequest) {
+    private Observable<T> loadFromNetwork(final NetRequest<T> xinRequest) {
         ObservableTransformer<BaseOutPut<T>, BaseOutPut<T>> transformer = log("load from network: " + xinRequest.cachekey);
 
         return xinRequest.reqObservable
