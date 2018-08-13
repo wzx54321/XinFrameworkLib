@@ -60,6 +60,9 @@ $ git rm -r --cached XinFrameworkLib
 
 邮    箱： Get_sugar@hotmail.com
 
+ <div class='row'>
+<img src="https://github.com/wzx54321/XinFrameworkLib/blob/master/imgs/blog.png" title="" width="25%" height="25%"/>   
+  </div>
 
 ```
 
