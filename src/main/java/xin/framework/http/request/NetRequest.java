@@ -53,20 +53,20 @@ public class NetRequest<T> {
 
     public static class Builder {
 
-        Map<String, Object> fieldMap;
-        Map<String, String> queryMap;
-        XinReqCallback xinReqCallback;
-        LifecycleTransformer<ResponseBody> lifecycleTransformer;
-        String baseUrl;
-        String suffixUrl;
-        String cacheKey;
-        String postContent;
-        MediaType mediaType;
-        Class aClass;
-        Map<String, String> headers = new HashMap<>();
+        private  Map<String, Object> fieldMap;
+        private  Map<String, String> queryMap;
+        private XinReqCallback xinReqCallback;
+        private LifecycleTransformer<ResponseBody> lifecycleTransformer;
+        private  String baseUrl;
+        private String suffixUrl;
+        private  String cacheKey;
+        private String postContent;
+        private MediaType mediaType;
+        private Class aClass;
+        private  Map<String, String> headers = new HashMap<>();
 
-        public int retryCount = 0;
-        public int retryDelayMillis = 1000;
+        int retryCount = 0;
+        int retryDelayMillis = 1000;
 
         public Builder setBaseUrl(String mBaseUrl) {
             this.baseUrl = mBaseUrl;

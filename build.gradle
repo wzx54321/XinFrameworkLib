@@ -8,65 +8,74 @@ android {
     defaultConfig {
         minSdkVersion androidVersion.minSdkVersion
         targetSdkVersion androidVersion.targetSdkVersion
-        versionCode 2
+        versionCode  libVersionCode
         versionName "2.0"
+
     }
 
     buildTypes {
         release {
             minifyEnabled false
+            shrinkResources = false  // 必须使用混淆的时候才可以开启
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
 }
 
-// 注意 由于是框架底层所有需要业务成引用到的依赖需要使用compile，不使用implementation
+// 注意 由于是框架底层所有需要业务成引用到的依赖需要使用api，不使用implementation
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     /* android support */
-    compile var.appcompat_v7
-    compile var.support_design
+    api sdk.appcompat_v7
+    api sdk.support_design
     /*---------------------------------------Frameworks----------------------------------------------*/
     // 权限
-    compile(var.rxpermissions2) {
+    api(sdk.rxpermissions2) {
         exclude module: 'rxjava'
         exclude module: 'support-annotations'
     }
     // RX JAVA
-    compile var.rxjava2
-    compile var.rxandroid2
+    api sdk.rxjava2
+    api sdk.rxandroid2
     // retrofit
-    compile var.retrofit
-    compile var.retrofit_adapter_rxjava2
-    compile var.retrofit_converter_gson
+    api sdk.retrofit
+    api sdk.retrofit_adapter_rxjava2
+    api sdk.retrofit_converter_gson
     // RX 生命周期
-    compile var.rxlifecycle
-    compile var.rxlifecycle_android
-    compile var.rxlifecycle_components
+    api sdk.rxlifecycle
+    api sdk.rxlifecycle_android
+    api sdk.rxlifecycle_components
     // glide
-    compile(var.glide) {
+    api(sdk.glide) {
         exclude group: "com.android.support"
     }
-    compile var.glide_loader_okhttp3
+    api sdk.glide_loader_okhttp3
 
-    annotationProcessor var.glide_compiler
+    annotationProcessor sdk.glide_compiler
     /*---------------------------------------Frameworks END----------------------------------------------*/
 
 }
 
 buildscript {
     apply from: "XinConfig.gradle"
+    apply from: "utils.gradle"
     repositories {
         google()
         jcenter()
 
         maven { url "http://objectbox.net/beta-repo/" }
+
+	 /*  maven{
+            url 'http://maven.oschina.net/content/groups/public'
+        }*/
     }
 
     dependencies {
-        classpath var.objectbox
+        classpath sdk.objectbox
     }
+
+
 }
 
 afterEvaluate {
@@ -74,3 +83,9 @@ afterEvaluate {
         options.compilerArgs << "-Xmaxerrs" << "500"
     }
 }
+
+
+
+
+
+

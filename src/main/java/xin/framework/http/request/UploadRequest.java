@@ -55,12 +55,12 @@ public class UploadRequest<T> {
     }
 
     public static class Builder {
-        String baseUrl;
-        String suffixUrl;
-        List<MultipartBody.Part> parts;
-        XinReqCallback callback;
-        Type rspClazz;
-        Map<String, String> headers;
+        private  String baseUrl;
+        private  String suffixUrl;
+        private  List<MultipartBody.Part> parts;
+        private XinReqCallback callback;
+        private Type rspClazz;
+        private  Map<String, String> headers;
 
         public Builder setHeaders(Map<String, String> headers) {
             this.headers = headers == null ? new HashMap<String, String>() : headers;

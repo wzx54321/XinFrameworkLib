@@ -1,6 +1,7 @@
 ext {
 
 
+
     androidVersion = [
             compileSdkVersion: 27,
             minSdkVersion    : 16,
@@ -22,7 +23,7 @@ ext {
     ]
 
 
-    var = [
+    sdk = [
             //Android support
             appcompat_v7            : "com.android.support:appcompat-v7:${sdkVersion.androidSupportSdkVersion}",
             support_v4              : "com.android.support:support-v4:${sdkVersion.androidSupportSdkVersion}",
