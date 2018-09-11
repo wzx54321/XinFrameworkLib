@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+<files-path name="name" path="path" /> 对应Context.getFilesDir() + “/path/”，即/data/data/<package-name>/files/path/。
+<cache-path name="name" path="path" /> 对应Context.getCacheDir() + “/path/”，即/data/data/<package-name>/cache/path/。
+<external-files-path name="name" path="path" /> 对应Context.getExternalFilesDir(null) + “/path/”，即/storage/emulated/0/Android/data/<package_name>/files/path/。
+<external-cache-path name="name" path="path" /> 对应Context.getExternalCacheDir() + “/path/”，即/storage/emulated/0/Android/data/<package-name>/cache/path/。
+<external-path name="name" path="path" /> 对应Environment.getExternalStorageDirectory() + “/path/”，即/storage/emulated/0/path/。
+-->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--/data/data/<package-name>/files/x_files/-->
+    <files-path name="xin_files" path="x_files/"/>
+    <!--/data/data/<package-name>/cache/x_cache/-->
+    <cache-path name="xin_cache" path="x_cache/" />
+    <external-files-path name="xin_apks" path="apk/" />
+
+    <!-- TODO 配置自己的路径-->
+</paths>

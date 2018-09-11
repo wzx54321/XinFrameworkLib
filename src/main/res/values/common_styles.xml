@@ -12,10 +12,11 @@
 
     <style name="splash" parent="@style/AppTheme">
         <item name="android:windowFullscreen">true</item>
-        <item name="android:windowIsTranslucent">true</item>
         <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowBackground">@drawable/common_splash_background</item>
     </style>
-
+    <!--<item name="android:windowDisablePreview">true</item>-->
 
     <!--ListView风格-->
     <style name="common_list_view" parent="@android:style/Widget.ListView">

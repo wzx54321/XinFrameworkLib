@@ -3,4 +3,20 @@
 
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+
+    <application>
+
+        <provider
+            android:name="xin.framework.base.XinFileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/common_file_paths"/>
+        </provider>
+
+    </application>
+
 </manifest>

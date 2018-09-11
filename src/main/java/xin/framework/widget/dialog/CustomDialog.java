@@ -44,10 +44,6 @@ public class CustomDialog extends Dialog {
 
     private RelativeLayout contentRoot;
 
-    /**
-     * 设置取消按钮的显示内容和监听
-     */
-
 
     public CustomDialog(Context context) {
         super(context, R.style.dialog_normal);
@@ -74,9 +70,7 @@ public class CustomDialog extends Dialog {
 
     }
 
-    /**
-     * 初始化界面的确定和取消监听器
-     */
+
 
     private void initView() {
 
@@ -84,9 +78,6 @@ public class CustomDialog extends Dialog {
 
     }
 
-    /**
-     * 初始化界面控件的显示数据
-     */
 
 
     private void initData() {
@@ -102,9 +93,6 @@ public class CustomDialog extends Dialog {
 
     }
 
-    /**
-     * 初始化界面控件
-     */
 
     private void initEvent() {
 

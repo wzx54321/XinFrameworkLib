@@ -58,8 +58,6 @@ public class SelfDialog extends Dialog {
     /**
      * 设置取消按钮的显示内容和监听
      */
-
-
     public SelfDialog(Context context) {
         super(context, R.style.dialog_normal);
 
@@ -70,8 +68,6 @@ public class SelfDialog extends Dialog {
      *
      * @param str
      */
-
-
     public void setNoOnclickListener(String str, onNoOnclickListener onNoOnclickListener) {
         if (str != null) {
             noStr = str;

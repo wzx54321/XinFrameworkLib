@@ -115,7 +115,7 @@ public class FileConfig {
         if (SysUtils.hasLollipop()) {
 
             // 权限处理
-            PermissionUtil.externalStorage(new PermissionUtil.RequestPermission() {
+            PermissionUtil.externalStorage(new PermissionUtil.PermissionCallback() {
                 @Override
                 public void onRequestPermissionSuccess() {
                     createParentDir();
@@ -129,7 +129,14 @@ public class FileConfig {
                     if (mOnFileCreatedListener != null)
                         mOnFileCreatedListener.onFailure();
                 }
-            }, new RxPermissions(activity), null);
+
+                @Override
+                public void onRequestError() {
+                    // 没有创建权限
+                    if (mOnFileCreatedListener != null)
+                        mOnFileCreatedListener.onFailure();
+                }
+            }, new RxPermissions(activity));
         } else {
             createParentDir();
             if (mOnFileCreatedListener != null)

@@ -1,24 +1,24 @@
 package xin.framework.utils.android;
 
 import android.Manifest;
-import android.annotation.TargetApi;
-import android.content.Context;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import xin.framework.utils.android.Loger.Log;
-import xin.framework.utils.common.rxerrorhandler.core.RxErrorHandler;
-import xin.framework.utils.common.rxerrorhandler.handler.ErrorHandleSubscriber;
-import xin.framework.utils.common.rxerrorhandler.handler.listener.ResponseErrorListener;
 
 
 /**
  * Created by jess on 17/10/2016 10:09
- * Contact with jess.yan.effort@gmail.com
+ * <P>
+ *  modify by xin
  */
 
 @SuppressWarnings("WeakerAccess")
@@ -29,14 +29,16 @@ public class PermissionUtil {
     private PermissionUtil() {
     }
 
-    public interface RequestPermission {
+    public interface PermissionCallback {
         void onRequestPermissionSuccess();
 
         void onRequestPermissionFailure();
+
+        void onRequestError();
     }
 
 
-    public static void requestPermission(final RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler, String... permissions) {
+    public static void requestPermission(@NonNull final PermissionCallback requestPermission, RxPermissions rxPermissions, String... permissions) {
         if (permissions == null || permissions.length == 0) return;
 
         List<String> needRequest = new ArrayList<>();
@@ -45,39 +47,37 @@ public class PermissionUtil {
                 needRequest.add(permission);
             }
         }
-
         if (needRequest.size() == 0) {//全部权限都已经申请过，直接执行操作
             requestPermission.onRequestPermissionSuccess();
         } else {//没有申请过,则开始申请
 
-            if (errorHandler == null) {
+            rxPermissions.request(needRequest.toArray(new String[needRequest.size()])).subscribe(new Observer<Boolean>() {
+                @Override
+                public void onSubscribe(Disposable d) {
 
-                errorHandler = RxErrorHandler
-                        .builder()
-                        .with(ContextUtils.getContext())
-                        .responseErrorListener(new ResponseErrorListener() {
-                            @Override
-                            public void handleResponseError(Context context, Throwable t) {
-                                Log.e(t, "error handle");
+                }
 
-                            }
-                        }).build();
-            }
+                @Override
+                public void onNext(Boolean granted) {
+                    if (granted) {
+                        Log.d("Request permissions success");
+                        requestPermission.onRequestPermissionSuccess();
+                    } else {
+                        Log.d("Request permissions failure");
+                        requestPermission.onRequestPermissionFailure();
+                    }
+                }
 
-            rxPermissions
-                    .request(needRequest.toArray(new String[needRequest.size()]))
-                    .subscribe(new  ErrorHandleSubscriber<Boolean>(errorHandler) {
-                        @Override
-                        public void onNext(Boolean granted) {
-                            if (granted) {
-                                Log.d("Request permissions success");
-                                requestPermission.onRequestPermissionSuccess();
-                            } else {
-                                Log.d("Request permissions failure");
-                                requestPermission.onRequestPermissionFailure();
-                            }
-                        }
-                    });
+                @Override
+                public void onError(Throwable e) {
+                    Log.d("Request permissions error");
+                    requestPermission.onRequestError();
+                }
+
+                @Override
+                public void onComplete() {
+                }
+            });
         }
 
     }
@@ -86,76 +86,98 @@ public class PermissionUtil {
     /**
      * 请求摄像头权限
      */
-    public static void launchCamera(RequestPermission requestPermission, RxPermissions rxPermissions,
-                                     RxErrorHandler errorHandler) {
-        requestPermission(requestPermission, rxPermissions, errorHandler,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
+    public static void camera(PermissionCallback requestPermission, RxPermissions rxPermissions
+    ) {
+        requestPermission(requestPermission, rxPermissions,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA);
     }
 
 
     /**
      * 请求外部存储的权限
+     * <p>
+     * permission:android.permission.READ_EXTERNAL_STORAGE
+     * <p>
+     * permission:android.permission.WRITE_EXTERNAL_STORAGE
      */
     @SuppressWarnings("SameParameterValue")
-    public static void externalStorage(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
-        requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    public static void externalStorage(PermissionCallback requestPermission, RxPermissions rxPermissions) {
+        requestPermission(requestPermission, rxPermissions,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
     }
 
 
-    /**
-     * 请求发送短信权限
-     */
-    public static void sendSms(RequestPermission requestPermission, RxPermissions rxPermissions,  RxErrorHandler errorHandler) {
-        requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.SEND_SMS);
-    }
+
 
 
     /**
      * 短信所有权限
+     * <p>
+     * permission:android.permission.READ_SMS
+     * <p>
+     * permission:android.permission.RECEIVE_WAP_PUSH
+     * <p>
+     * permission:android.permission.RECEIVE_MMS
+     * <p>
+     * permission:android.permission.RECEIVE_SMS
+     * <p>
+     * permission:android.permission.SEND_SMS
+     * <p>
+     * permission:android.permission.READ_CELL_BROADCASTS
+     * <p>
      */
-    public static void SmsAll(RequestPermission requestPermission, RxPermissions rxPermissions,  RxErrorHandler errorHandler) {
-        requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.READ_SMS,
-                Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.BROADCAST_SMS,
-                Manifest.permission.RECEIVE_MMS, Manifest.permission.RECEIVE_WAP_PUSH);
+    public static void SmsAll(PermissionCallback requestPermission, RxPermissions rxPermissions) {
+        requestPermission(requestPermission, rxPermissions,
+                Manifest.permission.SEND_SMS
+        );
     }
 
 
     /**
      * 请求打电话权限
      */
-    public static void callPhone(RequestPermission requestPermission, RxPermissions rxPermissions,  RxErrorHandler errorHandler) {
-        requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.CALL_PHONE);
+    public static void callPhone(PermissionCallback requestPermission, RxPermissions rxPermissions) {
+        requestPermission(requestPermission, rxPermissions, Manifest.permission.CALL_PHONE);
     }
 
 
     /**
      * 请求获取手机状态的权限
      */
-    public static void readPhoneState(RequestPermission requestPermission, RxPermissions rxPermissions,  RxErrorHandler errorHandler) {
-        requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.READ_PHONE_STATE);
+    public static void readPhoneState(PermissionCallback requestPermission, RxPermissions rxPermissions) {
+        requestPermission(requestPermission, rxPermissions,
+                Manifest.permission.READ_PHONE_STATE);
     }
 
 
     /**
      * 联系人权限
      */
-    public static void contacts(RequestPermission requestPermission, RxPermissions rxPermissions,  RxErrorHandler errorHandler) {
-        requestPermission(requestPermission, rxPermissions, errorHandler,Manifest.permission.GET_ACCOUNTS);
+    public static void contacts(PermissionCallback requestPermission, RxPermissions rxPermissions) {
+        requestPermission(requestPermission, rxPermissions,
+                Manifest.permission.GET_ACCOUNTS);
     }
 
     /**
      * 日历权限
      */
-    public static void calendar(RequestPermission requestPermission, RxPermissions rxPermissions,  RxErrorHandler errorHandler) {
-        requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.READ_CALENDAR,
+    public static void calendar(PermissionCallback requestPermission, RxPermissions rxPermissions) {
+        requestPermission(requestPermission, rxPermissions
+                , Manifest.permission.READ_CALENDAR,
                 Manifest.permission.WRITE_CALENDAR);
     }
 
     /**
-     * 位置权限
+     * 位置权限：
+     * <p>
+     * permission:android.permission.ACCESS_FINE_LOCATION
+     * <p>
+     * permission:android.permission.ACCESS_COARSE_LOCATION
      */
-    public static void location(RequestPermission requestPermission, RxPermissions rxPermissions,  RxErrorHandler errorHandler) {
-        requestPermission(requestPermission, rxPermissions, errorHandler,
+    public static void location(PermissionCallback requestPermission, RxPermissions rxPermissions) {
+        requestPermission(requestPermission, rxPermissions,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION);
     }
@@ -164,10 +186,10 @@ public class PermissionUtil {
     /**
      * 传感器权限
      */
-    @TargetApi(Build.VERSION_CODES.KITKAT_WATCH)
-    public static void sensors(RequestPermission requestPermission, RxPermissions rxPermissions,  RxErrorHandler errorHandler) {
-
-            requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.BODY_SENSORS);
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
+    public static void sensors(PermissionCallback requestPermission, RxPermissions rxPermissions) {
+        requestPermission(requestPermission, rxPermissions,
+                Manifest.permission.BODY_SENSORS);
 
     }
 
@@ -175,8 +197,19 @@ public class PermissionUtil {
     /**
      * 麦克风权限
      */
-    public static void microphone(RequestPermission requestPermission, RxPermissions rxPermissions,  RxErrorHandler errorHandler) {
-        requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.RECORD_AUDIO);
+    public static void microphone(PermissionCallback requestPermission, RxPermissions rxPermissions) {
+        requestPermission(requestPermission, rxPermissions,
+                Manifest.permission.RECORD_AUDIO);
+    }
+
+
+    /**
+     * 安装权限
+     */
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public static void installApp(PermissionCallback requestPermission, RxPermissions rxPermissions) {
+        requestPermission(requestPermission, rxPermissions,
+                Manifest.permission.REQUEST_INSTALL_PACKAGES);
     }
 
 }

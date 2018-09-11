@@ -16,7 +16,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            shrinkResources = false  // 必须使用混淆的时候才可以开启
+            shrinkResources = isMinifyEnabled()  // 必须使用混淆的时候才可以开启
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
