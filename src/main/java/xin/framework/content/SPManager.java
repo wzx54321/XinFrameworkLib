@@ -1,9 +1,6 @@
 package xin.framework.content;
 
 import android.annotation.SuppressLint;
-import android.text.TextUtils;
-
-import java.util.UUID;
 
 import xin.framework.utils.android.ContextUtils;
 
@@ -57,16 +54,8 @@ public class SPManager implements SharedPreferencesKeys {
     @SuppressWarnings("UnusedReturnValue")
     @SuppressLint("HardwareIds")
     public boolean putDeviceId(String deviceId) {
+        return mDk.put(KEY_PHONE_DEVICE_ID, deviceId).commit();
 
-        if (TextUtils.isEmpty(mDk.get(KEY_PHONE_DEVICE_ID, ""))) {
-            // 某些设备在应用启动时会提示获取手机识别码安全限制，此时如果禁止权限则deviceId为空，无法进行登录,所以这种情况下取SERIAL作为设备唯一标识
-            if (TextUtils.isEmpty(deviceId)) {
-                deviceId = android.os.Build.SERIAL != null ? android.os.Build.SERIAL : UUID.randomUUID().toString();
-            }
-            return mDk.put(KEY_PHONE_DEVICE_ID, deviceId).commit();
-
-        }
-        return false;
 
     }
 
@@ -113,9 +102,9 @@ public class SPManager implements SharedPreferencesKeys {
      * @param encryptPwd
      * @return
      */
-    public void   putPatternPSW(String encryptPwd) {
+    public void putPatternPSW(String encryptPwd) {
 
-         mDk.put(KEY_GESTURE_PWD, encryptPwd).commit();
+        mDk.put(KEY_GESTURE_PWD, encryptPwd).commit();
 
     }
 
@@ -134,7 +123,7 @@ public class SPManager implements SharedPreferencesKeys {
      * @return
      */
     public void setHasFingerPrint(boolean isSet) {
-          mDk.put(KEY_HAS_FINGERPRINT, isSet).apply();
+        mDk.put(KEY_HAS_FINGERPRINT, isSet).apply();
     }
 
     /**

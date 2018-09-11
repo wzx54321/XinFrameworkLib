@@ -1,6 +1,6 @@
-
 package xin.framework.utils.android;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.View;
@@ -28,7 +29,7 @@ import xin.framework.utils.android.Loger.Log;
 
 /**
  * 系统相关工具
- *
+ * <p>
  * <p>
  * 邮箱：ittfxin@126.com
  * <p>
@@ -89,7 +90,14 @@ public class SysUtils {
                 return deviceId2;
             } else {
                 if (telephonyManager != null) {
-                    deviceId1 = telephonyManager.getDeviceId();
+                    if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                        deviceId1 = telephonyManager.getDeviceId();
+
+                        if (TextUtils.isEmpty(deviceId1)) {
+                            deviceId1 = SysUtils.hasO() ? Build.getSerial() : Build.SERIAL;
+
+                        }
+                    }
                 }
                 if (!TextUtils.isEmpty(deviceId1)
                         && !TextUtils.equals(deviceId1, "000000000000000") && !TextUtils.equals(deviceId1, "9774d56d682e549c")/*厂商定制系统的Bug*/) {
@@ -99,9 +107,8 @@ public class SysUtils {
         } catch (Exception e2) {
             Log.printStackTrace(e2);
         }
-        return Build.SERIAL != null ? Build.SERIAL : UUID.randomUUID().toString();
+        return UUID.randomUUID().toString();
     }
-
 
 
     /**
@@ -183,6 +190,12 @@ public class SysUtils {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
     }
 
+    /**
+     * 判断是否大于M 8.0
+     */
+    public static boolean hasO() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
+    }
 
     /**
      * 获取当前进程名字
@@ -265,9 +278,6 @@ public class SysUtils {
     }
 
 
-
-
-
     private static String getOperatorBySlot(TelephonyManager telephony, String predictedMethodName,
                                             int slotID) {
         if (telephony == null) {
@@ -292,9 +302,9 @@ public class SysUtils {
     }
 
     public static void dismissKeyBoard(Context context) {
-        View view = ((Activity)context).getWindow().peekDecorView();
-        if(view != null) {
-            InputMethodManager inputManger = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        View view = ((Activity) context).getWindow().peekDecorView();
+        if (view != null) {
+            InputMethodManager inputManger = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 

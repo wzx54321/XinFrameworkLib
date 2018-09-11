@@ -10,7 +10,7 @@ import xin.framework.utils.android.SysUtils;
 /**
  * Description :App配置
  * Created by xin on 2017/8/22 0022.
- *
+ * <p>
  * <p>
  * 邮箱：ittfxin@126.com
  * <p>
