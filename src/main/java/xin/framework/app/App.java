@@ -12,8 +12,8 @@ import xin.framework.utils.android.SysUtils;
  * 邮箱：ittfxin@126.com
  * <p>
  * https://github.com/wzx54321/XinFrameworkLib
- *<p>
- *
+ * <p>
+ * <p>
  * Application 基类
  */
 
@@ -59,6 +59,16 @@ public class App extends Application {
      */
     @SuppressWarnings("unused")
     public static void exitApp() {
-        mAppDelegate.exit();
+        if (mAppDelegate != null)
+            mAppDelegate.exit();
+    }
+
+
+    /**
+     * 重启应用
+     */
+    public static void restart() {
+        if (mAppDelegate != null)
+            mAppDelegate.restartApp();
     }
 }

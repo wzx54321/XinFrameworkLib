@@ -17,6 +17,11 @@
                 android:resource="@xml/common_file_paths"/>
         </provider>
 
+        <activity
+            android:name=".app.AppRestartBridge"
+            android:process=":restart"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            />
     </application>
 
 </manifest>

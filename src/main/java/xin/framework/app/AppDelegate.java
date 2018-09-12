@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import xin.framework.BuildConfig;
@@ -149,5 +150,11 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
             Log.e(er, "exit app error");
         }
 
+    }
+
+    public void restartApp() {
+        Intent intent =new Intent(app,AppRestartBridge.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK );
+        app.startActivity(intent);
     }
 }

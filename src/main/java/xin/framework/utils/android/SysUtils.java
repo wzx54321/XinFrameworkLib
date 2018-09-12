@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -309,6 +310,17 @@ public class SysUtils {
             InputMethodManager inputManger = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
 
+
+    /**
+     * 启动应用入口Activity
+     *
+     * @param activity    从activity启动
+     * @param packageName 启动activity的包名
+     */
+    public static void openLaunchApp(Activity activity, String packageName) {
+        Intent intent = activity.getPackageManager().getLaunchIntentForPackage(packageName);
+        activity.startActivity(intent);
     }
 }
