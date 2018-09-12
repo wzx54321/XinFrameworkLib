@@ -90,6 +90,8 @@ public class SysUtils {
                 return deviceId2;
             } else {
                 if (telephonyManager != null) {
+
+                    // 需要获取权限
                     if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
                         deviceId1 = telephonyManager.getDeviceId();
 

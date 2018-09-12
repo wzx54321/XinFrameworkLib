@@ -91,8 +91,6 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
                 }
 
 
-
-
             });
 
 
