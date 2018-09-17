@@ -23,7 +23,7 @@ import xin.framework.http.cache.CacheManager;
 import xin.framework.http.callback.XinReqCallback;
 import xin.framework.http.callback.XinRequestObserver;
 import xin.framework.http.func.OutputFunction;
-import xin.framework.http.func.ResultFunction;
+import xin.framework.http.func.ResultConvert;
 import xin.framework.http.func.RetryFunction;
 import xin.framework.http.helper.HttpHelper;
 import xin.framework.http.helper.MediaTypes;
@@ -197,9 +197,9 @@ public class NetRequest<T> {
                 reqObservable = apiService.get(suffixUrl, headers);
             }
             if (lifecycleTransformer != null) {
-                xinRequest.reqObservable = reqObservable.compose(lifecycleTransformer).map(new ResultFunction<>(aClass));
+                xinRequest.reqObservable = reqObservable.compose(lifecycleTransformer).map(new ResultConvert<>(aClass));
             } else {
-                xinRequest.reqObservable = reqObservable.map(new ResultFunction<>(aClass));
+                xinRequest.reqObservable = reqObservable.map(new ResultConvert<>(aClass));
             }
 
             return xinRequest;

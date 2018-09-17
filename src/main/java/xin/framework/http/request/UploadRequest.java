@@ -29,7 +29,7 @@ import xin.framework.http.callback.DownUpCallback;
 import xin.framework.http.callback.XinReqCallback;
 import xin.framework.http.callback.XinRequestObserver;
 import xin.framework.http.func.OutputFunction;
-import xin.framework.http.func.ResultFunction;
+import xin.framework.http.func.ResultConvert;
 import xin.framework.http.helper.HttpHelper;
 import xin.framework.http.helper.MediaTypes;
 import xin.framework.http.output.BaseOutPut;
@@ -246,7 +246,7 @@ public class UploadRequest<T> {
         ApiService apiService = HttpHelper.getInstance().getRetrofit(baseUrl).create(ApiService.class);
 
         apiService.upload(TextUtils.isEmpty(suffixUrl) ? "" : suffixUrl, parts, headers).
-                map(new ResultFunction<T>(rspClazz)).
+                map(new ResultConvert<T>(rspClazz)).
                 compose(apiTransformerMap()).
                 subscribe(observer);
 

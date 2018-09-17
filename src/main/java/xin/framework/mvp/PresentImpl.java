@@ -1,4 +1,4 @@
-package xin.framework.mvp.mvp;
+package xin.framework.mvp;
 
 
 public class PresentImpl<V extends IView> implements IPresent<V> {

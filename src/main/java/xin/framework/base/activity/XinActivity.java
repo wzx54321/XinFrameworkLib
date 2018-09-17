@@ -9,8 +9,8 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import xin.framework.base.common.IVDelegate;
 import xin.framework.base.common.VDelegateImpl;
-import xin.framework.mvp.mvp.IPresent;
-import xin.framework.mvp.mvp.IView;
+import xin.framework.mvp.IPresent;
+import xin.framework.mvp.IView;
 import xin.framework.utils.android.view.compatibility.title.StatusBarUtil;
 
 /**

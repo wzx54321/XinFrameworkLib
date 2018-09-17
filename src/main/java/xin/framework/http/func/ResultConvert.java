@@ -20,10 +20,10 @@ import xin.framework.utils.android.Loger.Log;
 /**
  *  结果在这里转换
  */
-public class ResultFunction<T> implements Function<ResponseBody, BaseOutPut<T>> {
+public class ResultConvert<T> implements Function<ResponseBody, BaseOutPut<T>> {
     protected Type type;
 
-    public ResultFunction(Type type) {
+    public ResultConvert(Type type) {
         this.type = type;
     }
 
