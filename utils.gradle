@@ -1,20 +1,25 @@
 // 时间递增
 static def increasedVersionCode() {
-      new Date().format("YYMMddHHmm").toInteger()
+    new Date().format("YYMMddHHmm").toInteger()
 }
 //  Git 中 commit 的数量
 static def CommitCountVersionCode() {
     def cmd = 'git rev-list HEAD --first-parent --count'
-      cmd.execute().text.trim().toInteger()
+    def count = cmd.execute().text.trim()
+
+    if (count != null && count.length() > 0) {
+        count.toInteger()
+    } else {
+        1
+    }
 }
 
 
 ext {
 
 
-          appVersionCode = increasedVersionCode()
-          libVersionCode = CommitCountVersionCode()
-
+    appVersionCode = increasedVersionCode()
+    libVersionCode = CommitCountVersionCode()
 
 
 }
