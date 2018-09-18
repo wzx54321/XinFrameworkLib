@@ -9,7 +9,18 @@
 
 
 ###  使用方法：
+
+
+
+
 ##### 方法一：使用git命令
+
+###### 使用条件：
+```
+你的工程使用了git版本控制,如果没有可以在有git环境的前提下，在工程的跟目录调用：  
+$ git init
+
+```
 
 引入到项目使用：  
 ```
@@ -37,7 +48,39 @@ $ git rm -r --cached XinFrameworkLib
 
 ----------------------------------------------------------------------------------------------------  
   
-    
+   
+## 如果在主工程中使用objectbox数据库并创建实体生成表，需要如下操作
+
+
+#### 第一步  
+
+工程根目录下build.gradle配置：  
+```
+dependencies {
+       
+        classpath "io.objectbox:objectbox-gradle-plugin:1.5.0"
+       
+    }
+
+...
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "http://objectbox.net/beta-repo/" }
+    }
+}
+```
+#### 第二步  
+
+主模块的build.gradle中<code>apply plugin: 'com.android.application'</code>下添加：
+
+```
+apply plugin: 'io.objectbox'
+```
+   
+   
+   
     
 
 
