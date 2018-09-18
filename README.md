@@ -107,7 +107,8 @@ public class EntityTemp {
 }
 
 ```
-
+### 对于表的操作参考，类似写法：
+https://github.com/wzx54321/XinFrameworkLib/blob/master/src/main/java/xin/framework/store/box/CookieBox.java
     
 
 
