@@ -116,11 +116,11 @@ public class EntityTemp {
 [参照文档，点击这里](https://github.com/wzx54321/XinFrameworkLib/blob/master/src/main/java/xin/framework/http/README.MD)
 
 
-####
+# 
 
 该版本在旧版基础上进行重构和精简
 **旧版地址：https://github.com/wzx54321/XinFramework**
-
+# 
 
 
 
