@@ -80,7 +80,33 @@ apply plugin: 'io.objectbox'
 ```
    
    
-   
+
+### 创建objectbox实体参照如下代码
+```
+@Entity // 1、必须要有
+public class EntityTemp implements Serializable {
+    @Id ///2、必须要有
+    private long id;
+    private String name;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+     // 3、必须要对属性使用get和set方法
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+```
+
     
 
 
