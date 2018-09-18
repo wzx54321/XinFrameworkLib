@@ -108,8 +108,12 @@ public class EntityTemp {
 
 ```
 ### 对于表的操作参考，类似写法：
-https://github.com/wzx54321/XinFrameworkLib/blob/master/src/main/java/xin/framework/store/box/CookieBox.java
-    
+[参照代码，点击查看]( https://github.com/wzx54321/XinFrameworkLib/blob/master/src/main/java/xin/framework/store/box/CookieBox.java )
+  
+## 网络框架使用：
+
+
+[参照文档，点击这里](https://github.com/wzx54321/XinFrameworkLib/blob/master/src/main/java/xin/framework/http/README.MD)
 
 
 ####
