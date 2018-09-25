@@ -8,6 +8,7 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
 import okhttp3.OkHttpClient;
+import xin.framework.BuildConfig;
 import xin.framework.http.cookie.CookieJarImpl;
 import xin.framework.http.cookie.store.MemoryCookieStore;
 import xin.framework.http.https.HttpsUtils;
@@ -40,7 +41,8 @@ public abstract class HttpConfig {
         HttpLog httpLog = new HttpLog();
         httpLog.setPrintLevel(HttpLog.Level.BODY); // log打印级别，决定了log显示的详细程度
         //  httpLog.setPrintBinaryBody(true);// 打印二进制Log ,默认不打印
-        builder.addInterceptor(httpLog);
+        if (BuildConfig.DEBUG)
+            builder.addInterceptor(httpLog);
 
 
        /* HeaderInterceptor headerInterceptor = new HeaderInterceptor();

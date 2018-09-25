@@ -60,6 +60,7 @@ dependencies {
 buildscript {
     apply from: "XinConfig.gradle"
     apply from: "utils.gradle"
+   // apply from: "bintray.gradle"
     repositories {
         google()
         jcenter()

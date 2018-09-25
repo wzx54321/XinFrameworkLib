@@ -19,6 +19,7 @@ package xin.framework.store.box.base;
 import java.util.List;
 
 import io.objectbox.Box;
+import io.objectbox.BoxStore;
 import io.objectbox.query.QueryBuilder;
 import xin.framework.configs.DBConfig;
 
@@ -29,6 +30,7 @@ import xin.framework.configs.DBConfig;
  * <p>
  * https://github.com/wzx54321/XinFrameworkLib
  * <p>
+ *
  * @param <T> 数据库表实体类
  * @author xin
  */
@@ -36,14 +38,25 @@ public abstract class BaseBoxManager<T> {
 
 
     private Box<T> mBox;
-    private Class<T> tClass;
 
-
+    /**
+     * 使用默认的BoxStore
+     * @param entityClazz
+     */
     @SuppressWarnings("WeakerAccess")
     public BaseBoxManager(Class<T> entityClazz) {
+        this(entityClazz, DBConfig.getBoxStore());
 
-        this.tClass = entityClazz;
-        mBox = DBConfig.getBoxStore().boxFor(tClass);
+    }
+
+    /**
+     * 使用工程内自创建的BoxStore{@link MyObjectBox#builder()#androidContext(context)#build()}
+     * MyObjectBox为自动生成，对应导入自定义的路径
+     * @param entityClazz
+     */
+    @SuppressWarnings("WeakerAccess")
+    public BaseBoxManager(Class<T> entityClazz, BoxStore boxStore) {
+        mBox = boxStore.boxFor(entityClazz);
 
     }
 
@@ -142,6 +155,14 @@ public abstract class BaseBoxManager<T> {
      * 获取对应的表名
      */
     public abstract String getTableName();
+
+
+    /**
+     * 获取真实的box
+     */
+    public Box<T> getRealBox() {
+        return mBox;
+    }
 
 
 }

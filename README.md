@@ -49,7 +49,11 @@ $ git rm -r --cached XinFrameworkLib
 ----------------------------------------------------------------------------------------------------  
   
    
-## 如果在主工程中使用objectbox数据库并创建实体生成表，需要如下操作
+## 如果如果在主工程中使用objectBox数据库并创建实体生成表，需要如下操作
+ 如果不在主工程中创建，在framework所属的目录下创建表，忽略下方 <li>第一步、<li>第二步、<li>第四步。
+ 只需要在 xin\framework\store\entity下，创建实体（第三步）即可，及后续操作。
+
+
 
 
 #### 第一步  
@@ -78,10 +82,9 @@ allprojects {
 ```
 apply plugin: 'io.objectbox'
 ```
-   
-   
 
-### 创建objectbox实体参照如下代码
+#### 第三步：创建实体
+创建objectbox实体参照如下代码
 ```
 @Entity // 1、必须要有Entity注解
 public class EntityTemp {
@@ -99,7 +102,7 @@ public class EntityTemp {
     public String getName() {
         return name;
     }
-    
+
     // 3、必须要有对应属性的get和set方法
     public void setName(String name) {
         this.name = name;
@@ -107,6 +110,46 @@ public class EntityTemp {
 }
 
 ```
+
+#### 第四步
+
+在项目入口调用：
+```
+// MyObjectBox需要编译生成，并导入正确的路径
+BoxStore boxStore = MyObjectBox.builder().androidContext(app).build();
+
+BoxStoreExtedUtils.createBoxStore(boxStore);
+
+```
+
+#### 第五步
+创建对应的操作Box类，继承 xin.framework.store.box.base.BaseBoxManager，构造方法根据需要调用：
+```
+   酌情调用和实现两个构造方法：
+
+      /**
+        * 使用默认的BoxStore
+        * @param entityClazz
+        */
+       public BaseBoxManager(Class<T> entityClazz) {
+           this(entityClazz, DBConfig.getBoxStore());
+
+       }
+
+       /**
+        * 使用工程内自创建的BoxStore{@link MyObjectBox#builder()#androidContext(context)#build()}
+        * MyObjectBox为自动生成，对应导入自定义的路径
+        * @param entityClazz
+        */
+       public BaseBoxManager(Class<T> entityClazz, BoxStore boxStore) {
+           mBox = boxStore.boxFor(entityClazz);
+       }
+
+```
+
+
+
+
 ### 对于表的操作参考，类似写法：
 [参照代码，点击查看]( https://github.com/wzx54321/XinFrameworkLib/blob/master/src/main/java/xin/framework/store/box/CookieBox.java )
   
@@ -116,7 +159,7 @@ public class EntityTemp {
 [参照文档，点击这里](https://github.com/wzx54321/XinFrameworkLib/blob/master/src/main/java/xin/framework/http/README.MD)
 
 
-# 
+#
 
 该版本在旧版基础上进行重构和精简
 **旧版地址：https://github.com/wzx54321/XinFramework**
