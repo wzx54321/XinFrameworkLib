@@ -56,10 +56,10 @@ public class CommWebViewActivity extends XinActivity {
         CommonWebFragment mWebFragment = null;
         if (bundle != null) {
             mWebFragment = CommonWebFragment.getInstance(bundle);
-        }
+       
         xinFragmentUtils = new XinFragmentUtils(this);
         xinFragmentUtils.loadRootFragment(R.id.comm_root_web_activity, mWebFragment);
-
+       }
 
     }
 
