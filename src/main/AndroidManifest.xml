@@ -1,8 +1,10 @@
 <manifest package="xin.framework"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 
     <application>
@@ -22,6 +24,7 @@
             android:process=":restart"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
             />
+        <activity android:name=".hybrid.activity.CommWebViewActivity"/>
     </application>
 
 </manifest>

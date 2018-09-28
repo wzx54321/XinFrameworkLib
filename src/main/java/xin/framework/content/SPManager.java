@@ -134,4 +134,16 @@ public class SPManager implements SharedPreferencesKeys {
     public boolean getHasFingerPrint() {
         return mDk.get(KEY_HAS_FINGERPRINT, false);
     }
+
+
+
+
+
+    public boolean getBoolean(String key, boolean bool) {
+        return mDk.get(key, bool);
+    }
+
+    public String getString(String key, String str) {
+        return mDk.get(key, str);
+    }
 }

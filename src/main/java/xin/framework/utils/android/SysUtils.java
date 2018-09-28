@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
@@ -330,14 +331,14 @@ public class SysUtils {
      */
     public static void hideBottomUIMenu(Activity activity) {
         //隐藏虚拟按键，并且全屏
-        if ( Build.VERSION.SDK_INT < 19) { // lower api
+        if (Build.VERSION.SDK_INT < 19) { // lower api
             View v = activity.getWindow().getDecorView();
             v.setSystemUiVisibility(View.GONE);
         } else {
             //for new api versions.
             View decorView = activity.getWindow().getDecorView();
             int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
+                   | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY  /*| View.SYSTEM_UI_FLAG_FULLSCREEN */;
             decorView.setSystemUiVisibility(uiOptions);
         }
 
@@ -348,15 +349,34 @@ public class SysUtils {
      */
     public static void hideBottomUIMenu(View view) {
         //隐藏虚拟按键，并且全屏
-        if ( Build.VERSION.SDK_INT < 19) { // lower api
+        if (Build.VERSION.SDK_INT < 19) { // lower api
             view.setSystemUiVisibility(View.GONE);
         } else {
             //for new api versions.
 
             int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY  ;
             view.setSystemUiVisibility(uiOptions);
         }
 
     }
+
+    public static ResolveInfo getResolveInfo(Context context, Intent intent) {
+
+        ResolveInfo info = null;
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            info = packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+
+        } catch (Exception err) {
+            Log.printStackTrace(err);
+        }
+        return info;
+
+    }
+
+
+
+
+
 }

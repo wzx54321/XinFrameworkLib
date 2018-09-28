@@ -68,10 +68,8 @@ public abstract class XinActivity<P extends IPresent> extends RxAppCompatActivit
     }
 
 
-    @Override
-    public void bindUI(View rootView) {
-        //unBinder = KnifeKit.bind(this);
-    }
+
+    public abstract void bindUI(View rootView);
 
 
     @Override

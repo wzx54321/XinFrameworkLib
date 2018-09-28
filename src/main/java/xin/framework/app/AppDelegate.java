@@ -12,6 +12,7 @@ import xin.framework.configs.AppConfig;
 import xin.framework.configs.CrashReportConfig;
 import xin.framework.configs.DBConfig;
 import xin.framework.configs.FileConfig;
+import xin.framework.hybrid.webview.WebViewConfig;
 import xin.framework.imageloader.base.GlideApp;
 import xin.framework.utils.android.ContextUtils;
 import xin.framework.utils.android.Loger.Log;
@@ -32,6 +33,11 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
     private App app;
 
     private static int appCreateCount;
+
+    /**
+     * 是否初始化webview
+     */
+    private   boolean mIsWebViewInit;
 
     AppDelegate(App app) {
         this.app = app;
@@ -85,6 +91,8 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
                 public void onCreated() {
                     // init  CrashReport
                     CrashReportConfig.init(app);
+                    // 配置WebView,预先加载WEBVIEW提高反应速度，如果不使用weView可以忽略
+                    mIsWebViewInit = WebViewConfig.getInstance().init();
                 }
 
                 @Override

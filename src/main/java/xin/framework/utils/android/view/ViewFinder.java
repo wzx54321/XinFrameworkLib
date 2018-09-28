@@ -6,6 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import java.util.UUID;
+
+import xin.framework.utils.android.SysUtils;
+
 /**
  * Created by xin
  * 用于查找View使用替代findViewById
@@ -54,6 +58,14 @@ public class ViewFinder {
         listView.setLayoutParams(params);
     }
 
+
+    public static int generateViewId() {
+        if (SysUtils.hasJellyBeanMr1()) {
+            return View.generateViewId();
+        } else {
+            return UUID.randomUUID().hashCode();
+        }
+    }
 
 
 }

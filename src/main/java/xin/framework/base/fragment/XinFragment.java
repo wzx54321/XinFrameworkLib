@@ -43,6 +43,16 @@ public abstract class XinFragment<P extends IPresent> extends RxFragment impleme
         StatusBarUtil.setPaddingSmart(getContext(), titleView);
     }
 
+    /**
+     * 自动适配状态title的padding
+     *
+     * @param titleView
+     */
+    public void setTitleViewTopPadding(View titleView) {
+
+        StatusBarUtil.setPaddingSmart(getContext(), titleView);
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

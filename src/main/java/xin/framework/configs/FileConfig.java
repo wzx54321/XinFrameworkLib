@@ -112,7 +112,7 @@ public class FileConfig {
 
         mOnFileCreatedListener = onFileCreatedListener;
 
-        if (SysUtils.hasLollipop()) {
+        if (SysUtils.hasM()) {
 
             // 权限处理
             PermissionUtil.externalStorage(new PermissionUtil.PermissionCallback() {
