@@ -12,7 +12,7 @@ import xin.framework.utils.android.Loger.Log;
 import xin.framework.utils.android.SysUtils;
 
 /**
- * Description :coolies 处理类
+ * Description :Cookies 处理类
  * Created by 王照鑫 on 2017/11/8 0008.
  */
 
