@@ -50,7 +50,8 @@ $ git rm -r --cached XinFrameworkLib
   
    
 ## 如果如果在主工程中使用objectBox数据库并创建实体生成表，需要如下操作
- 如果不在主工程中创建，在framework所属的目录下创建表，忽略下方 <li>第一步、<li>第二步、<li>第四步。
+ 如果不在主工程中创建，在framework所属的目录下创建表，忽略下方 <li>第一步、<li>第二步、<li>第四步。  
+ 
  只需要在 xin\framework\store\entity下，创建实体（第三步）即可，及后续操作。
 
 
