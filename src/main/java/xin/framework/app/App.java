@@ -44,6 +44,7 @@ public class App extends Application {
     @Override
     public void onLowMemory() {
         super.onLowMemory();
+        if (mAppDelegate != null)
         mAppDelegate.onLowMemory();
     }
 
@@ -51,6 +52,7 @@ public class App extends Application {
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
+        if (mAppDelegate != null)
         mAppDelegate.onTrimMemory(level);
     }
 
