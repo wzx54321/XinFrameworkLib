@@ -1,6 +1,7 @@
 package xin.framework.hybrid.presenter;
 
 import android.graphics.Bitmap;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -68,6 +69,8 @@ public class WebPresenter extends PresentImpl<CommonWebFragment> {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
+
+
             }
 
 
@@ -91,6 +94,12 @@ public class WebPresenter extends PresentImpl<CommonWebFragment> {
 
             }
 
+
+         /*   @Nullable
+            @Override
+            public View getVideoLoadingProgressView() {
+                return getV().getVideoLoadingProgressView();
+            }*/
 
             @Override
             public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {

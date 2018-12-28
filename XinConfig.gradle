@@ -18,7 +18,7 @@ ext {
             VRxlifecycle            : "2.0.1",
             rxandroid2              : "2.0.2",
             rxjava2                 : "2.1.14",
-            glideVersion            : "4.7.1",
+            glideVersion            : "4.8.0",
             AdapterHelper           : '2.9.25',
     ]
 

@@ -126,6 +126,7 @@ public class DownloadRequest {
 
         ApiService apiService = HttpHelper.getInstance().getRetrofit(baseUrl).
                 create(ApiService.class);
+
         Observable<ResponseBody> observable = apiService.download(suffixUrl, queryParams == null ? new HashMap<String, String>() : queryParams);
         if (lifecycleTransformer != null) {
             observable = observable.compose(lifecycleTransformer);

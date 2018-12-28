@@ -1,6 +1,7 @@
 package xin.framework.hybrid.model;
 
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
@@ -8,8 +9,12 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
+import android.view.View;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -17,9 +22,12 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import org.w3c.dom.Text;
+
 import java.net.URISyntaxException;
 import java.util.HashMap;
 
+import xin.framework.hybrid.utils.ADFilterTool;
 import xin.framework.hybrid.webview.WebViewConfig;
 import xin.framework.hybrid.webview.XinWebView;
 import xin.framework.utils.android.ContextUtils;
@@ -31,7 +39,7 @@ import xin.framework.utils.android.SysUtils;
  * Created by 王照鑫 on 2017/11/1 0001.
  */
 
-public class WebModel   {
+public class WebModel {
 
 
     private XinWebView mWebView;
@@ -47,9 +55,7 @@ public class WebModel   {
     public static class XinWebViewClient extends WebViewClient {
 
 
-
-
-
+        private boolean isRun;
 
 
         @Override
@@ -95,8 +101,38 @@ public class WebModel   {
 
 
         @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            super.onPageStarted(view, url, favicon);
+        public void onPageStarted(final WebView webView, String url, Bitmap favicon) {
+            super.onPageStarted(webView, url, favicon);
+
+            if (isRun)
+                return;
+
+            @SuppressLint("HandlerLeak") final Handler handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    String js = ADFilterTool.getClearAdDivJs(webView.getContext());
+                    if (!TextUtils.isEmpty(js))
+                        webView.loadUrl(js);
+                    removeMessages(0x001);
+                    removeCallbacksAndMessages(null);
+                }
+            };
+
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    isRun = true;
+                    while (isRun) {
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        handler.sendEmptyMessage(0x001);
+                    }
+                }
+            }).start();
 
 
         }
@@ -115,7 +151,7 @@ public class WebModel   {
 
             setTitleStyles();
 
-
+            isRun = false;
         }
 
 
@@ -124,7 +160,6 @@ public class WebModel   {
         public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
             return shouldInterceptRequest(view, request.getUrl().toString());
         }
-
 
 
         public void setTitleStyles() {
@@ -142,6 +177,22 @@ public class WebModel   {
 
     public static class XinWebChromeClient extends WebChromeClient {
 
+        @Override
+        public void onShowCustomView(View view, CustomViewCallback callback) {
+            super.onShowCustomView(view, callback);
+        }
+
+        @Override
+        public void onHideCustomView() {
+            super.onHideCustomView();
+        }
+
+
+        @Nullable
+        @Override
+        public View getVideoLoadingProgressView() {
+            return super.getVideoLoadingProgressView();
+        }
 
         @Override
         public void onReceivedTitle(WebView view,

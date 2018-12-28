@@ -38,6 +38,14 @@ public class WebVideoDelegate implements IVideo {
         flags = new HashSet<>();
     }
 
+
+    @Override
+    public View getVideoLoadingProgressView() {
+        moiveParentView = new FrameLayout(mActivity);
+        moiveParentView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        return moiveParentView;
+    }
+
     @Override
     public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
 
@@ -136,4 +144,6 @@ public class WebVideoDelegate implements IVideo {
         }
 
     }
+
+
 }

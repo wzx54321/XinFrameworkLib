@@ -21,4 +21,5 @@ public interface IVideo {
 
     boolean event();
 
+    View getVideoLoadingProgressView();
 }

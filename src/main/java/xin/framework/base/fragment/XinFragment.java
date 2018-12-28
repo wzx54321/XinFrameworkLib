@@ -58,6 +58,7 @@ public abstract class XinFragment<P extends IPresent> extends RxFragment impleme
         super.onAttach(activity);
         // 创建统一处理
         delegateHandler = VDelegateImpl.onCreate(activity);
+
     }
 
     @Override
@@ -259,4 +260,6 @@ public abstract class XinFragment<P extends IPresent> extends RxFragment impleme
     public boolean isFragmentVisible() {
         return isFragmentVisible;
     }
+
+
 }

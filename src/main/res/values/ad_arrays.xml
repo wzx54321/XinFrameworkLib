@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="adBlockDiv">
+        <!--  <item>div-gpt-ad-1443488528500-4</item>
+          <item>div-gpt-ad-1443727656867-1</item>
+          <item>div-gpt-ad-1443488528500-5</item>
+          <item>div-gpt-ad-1443488528500-6</item>
+          <item>div-gpt-ad-1443488528500-7</item>
+          <item>div-gpt-ad-1443727656867-0</item>
+          <item>div-gpt-ad-1443488528500-2</item>
+          <item>div-gpt-ad-1443488528500-3</item>-->
+        <item>HMPBox</item>
+        <item>HMfixIBox</item>
+        <!--自行添加广告栏目的div标签ID-->
+    </string-array>
+
+</resources>

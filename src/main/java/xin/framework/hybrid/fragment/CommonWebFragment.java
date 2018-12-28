@@ -1,6 +1,7 @@
 package xin.framework.hybrid.fragment;
 
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import xin.framework.BuildConfig;
 import xin.framework.R;
 import xin.framework.base.fragment.XinFragment;
 import xin.framework.hybrid.activity.CommWebViewActivity;
@@ -69,7 +71,10 @@ public class CommonWebFragment extends XinFragment<WebPresenter> implements XinW
         mWebVideoDelegate = new WebVideoDelegate(getActivity(), mWebView);
         mWebView.setOnBackClickListener(this);
         mProgressbar = ViewFinder.find(rootView, R.id.progressbar_webview);
-
+        if (BuildConfig.DEBUG)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                mWebView.setWebContentsDebuggingEnabled(true);
+            }
         StatusBarUtil.setPaddingSmart(getContext(), ViewFinder.find(rootView, R.id.title_root));
 
         mBtnGoBack = ViewFinder.find(rootView, R.id.app_back);
@@ -92,26 +97,10 @@ public class CommonWebFragment extends XinFragment<WebPresenter> implements XinW
             }
         });
         mBtnClose.setVisibility(View.GONE);
-
         mTitle = ViewFinder.find(rootView, R.id.web_title);
 
     }
 
-
-    @Override
-    protected void lazyLoad() {
-        super.lazyLoad();
-        if (getArguments() != null) {
-            WebOpenInfo mWebOpenInfo = (WebOpenInfo) getArguments().getSerializable(CommWebViewActivity.WEB_OPEN_INFO);
-            getP().setWebOpenInfo(mWebOpenInfo);
-            getP().setWebViewClient();
-            getP().setWebChromeClient();
-            getP().openBrowser(mWebOpenInfo);
-        } else {
-            throw new NullPointerException("Arguments is null");
-        }
-
-    }
 
     @Override
     public void onResume() {
@@ -143,8 +132,18 @@ public class CommonWebFragment extends XinFragment<WebPresenter> implements XinW
 
     @Override
     protected void bindDataFirst() {
-
+        if (getArguments() != null) {
+            WebOpenInfo mWebOpenInfo = (WebOpenInfo) getArguments().getSerializable(CommWebViewActivity.WEB_OPEN_INFO);
+            getP().setWebOpenInfo(mWebOpenInfo);
+            getP().setWebViewClient();
+            getP().setWebChromeClient();
+            getP().openBrowser(mWebOpenInfo);
+        } else {
+            throw new NullPointerException("Arguments is null");
+        }
     }
+
+
 
 
     public void setWebViewClient(WebModel.XinWebViewClient client) {
@@ -234,6 +233,13 @@ public class CommonWebFragment extends XinFragment<WebPresenter> implements XinW
 
     public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
         mWebVideoDelegate.onShowCustomView(view, callback);
+    }
+
+
+
+
+    public View getVideoLoadingProgressView() {
+        return  mWebVideoDelegate.getVideoLoadingProgressView();
     }
 
 

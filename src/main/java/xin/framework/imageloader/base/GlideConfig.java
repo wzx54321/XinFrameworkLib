@@ -19,6 +19,7 @@ import java.io.InputStream;
 
 import okhttp3.Call;
 import xin.framework.imageloader.progress.ProgressManager;
+import xin.framework.utils.android.Loger.Log;
 
 
 /**
@@ -75,7 +76,6 @@ public class GlideConfig extends AppGlideModule {
     public void applyOptions(@NonNull final Context context, @NonNull final GlideBuilder builder) {
 
 
-
         builder.setDiskCache(new InternalCacheDiskCacheFactory(context, 1024 * 1024 * 500));
         MemorySizeCalculator calculator = new MemorySizeCalculator.Builder(context).build();
         int defaultMemoryCacheSize = calculator.getMemoryCacheSize();
@@ -89,7 +89,7 @@ public class GlideConfig extends AppGlideModule {
 
         // builder.setDiskCacheExecutor(newDiskCacheExecutor(myUncaughtThrowableStrategy));
         //  builder.setResizeExecutor(newSourceExecutor(myUncaughtThrowableStrategy));
-        //  builder.setLogLevel(Log.DEBUG);
+        builder.setLogLevel(Log.DEBUG);
 
     }
 

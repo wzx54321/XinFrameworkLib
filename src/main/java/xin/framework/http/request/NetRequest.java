@@ -196,6 +196,9 @@ public class NetRequest<T> {
             } else {
                 reqObservable = apiService.get(suffixUrl, headers);
             }
+
+
+
             if (lifecycleTransformer != null) {
                 xinRequest.reqObservable = reqObservable.compose(lifecycleTransformer).map(new ResultConvert<>(aClass));
             } else {
