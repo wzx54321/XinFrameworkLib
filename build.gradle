@@ -35,6 +35,8 @@ dependencies {
         exclude module: 'rxjava'
         exclude module: 'support-annotations'
     }
+
+    api sdk.an_permission
     // RX JAVA
     api sdk.rxjava2
     api sdk.rxandroid2

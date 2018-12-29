@@ -2,15 +2,21 @@ package xin.framework.configs;
 
 import android.app.Activity;
 import android.os.Environment;
-
-import com.tbruyelle.rxpermissions2.RxPermissions;
-
-import java.io.File;
-
-import xin.framework.utils.android.PermissionUtil;
-import xin.framework.utils.android.SysUtils;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import xin.framework.utils.common.utils.io.FileUtil;
 import xin.framework.utils.common.utils.io.SdCardUtil;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * Description : 文件路径配置
@@ -112,58 +118,78 @@ public class FileConfig {
 
         mOnFileCreatedListener = onFileCreatedListener;
 
-        if (SysUtils.hasM()) {
 
-            // 权限处理
-            PermissionUtil.externalStorage(new PermissionUtil.PermissionCallback() {
-                @Override
-                public void onRequestPermissionSuccess() {
-                    createParentDir();
-                    if (mOnFileCreatedListener != null)
-                        mOnFileCreatedListener.onCreated();
-                }
+        AndPermission.with(activity).runtime().permission(Permission.Group.STORAGE)
+                .onDenied(new Action<List<String>>() {
+                    @Override
+                    public void onAction(List<String> data) {
+                        // 没有创建权限
+                        if (mOnFileCreatedListener != null)
+                            mOnFileCreatedListener.onFailure();
+                    }
+                }).onGranted(new Action<List<String>>() {
 
-                @Override
-                public void onRequestPermissionFailure() {
-                    // 没有创建权限
-                    if (mOnFileCreatedListener != null)
-                        mOnFileCreatedListener.onFailure();
-                }
-
-                @Override
-                public void onRequestError() {
-                    // 没有创建权限
-                    if (mOnFileCreatedListener != null)
-                        mOnFileCreatedListener.onFailure();
-                }
-            }, new RxPermissions(activity));
-        } else {
-            createParentDir();
-            if (mOnFileCreatedListener != null)
-                mOnFileCreatedListener.onCreated();
-        }
-
-
-    }
-
-    private static void createParentDir() {
-
-        new Thread(new Runnable() {
 
             @Override
-            public void run() {
-
-                if (SdCardUtil.isSdCardAvailable()) {// 创建外置根目录,.nomedia文件
-                    FileUtil.createNewFileAndParentDir(new File(getPublicDir(DIR_PUBLIC_ROOT),
-                            ".nomedia"));
-                }
+            public void onAction(List<String> data) {
+                createParentDir();
             }
         }).start();
 
 
     }
 
-    OnFileCreatedListener mOnFileCreatedListener;
+    private static void createParentDir() {
+        Observable.create(new ObservableOnSubscribe<Object>() {
+            @Override
+            public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
+                boolean isCreated = false;
+                if (SdCardUtil.isSdCardAvailable()) {// 创建外置根目录,.nomedia文件
+                    isCreated = FileUtil.createNewFileAndParentDir(new File(getPublicDir(DIR_PUBLIC_ROOT),
+                            ".nomedia"));
+                }
+                if (isCreated)
+                    emitter.onNext(new Object());
+                emitter.onComplete();
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Object>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Object o) {
+                        if (mOnFileCreatedListener != null)
+                            mOnFileCreatedListener.onCreated();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        if (mOnFileCreatedListener != null)
+                            mOnFileCreatedListener.onFailure();
+                    }
+                });
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+
+
+            }
+        }).start();
+
+
+    }
+
+    static OnFileCreatedListener mOnFileCreatedListener;
 
     public interface OnFileCreatedListener {
         void onCreated();

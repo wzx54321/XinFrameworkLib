@@ -65,15 +65,14 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
 
         //  Device ID
         AppConfig.setDeviceId(app);
-
-
         // 生命周期
         app.registerActivityLifecycleCallbacks(this);
-
-
         // 屏幕宽高
         ScreenUtils.init(app);
-
+        // init  CrashReport
+        CrashReportConfig.init(app);
+        // 配置WebView,预先加载WEBVIEW提高反应速度，如果不使用weView可以忽略
+        mIsWebViewInit = WebViewConfig.getInstance().init();
     }
 
 
@@ -84,27 +83,7 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
         }
 
 
-        if (appCreateCount == 0) {
-            // 配置文件系统
-            new FileConfig().init(activity, new FileConfig.OnFileCreatedListener() {
-                @Override
-                public void onCreated() {
-                    // init  CrashReport
-                    CrashReportConfig.init(app);
-                    // 配置WebView,预先加载WEBVIEW提高反应速度，如果不使用weView可以忽略
-                    mIsWebViewInit = WebViewConfig.getInstance().init();
-                }
 
-                @Override
-                public void onFailure() {
-                }
-
-
-            });
-
-
-        }
-        appCreateCount++;
     }
 
     @Override
