@@ -10,8 +10,17 @@
           <item>div-gpt-ad-1443727656867-0</item>
           <item>div-gpt-ad-1443488528500-2</item>
           <item>div-gpt-ad-1443488528500-3</item>-->
+        <item>fBox</item>
         <item>HMPBox</item>
+        <item>HMDownBox</item>
         <item>HMfixIBox</item>
+        <item>HMDownMain</item>
+        <item>HMfixIBox</item>
+        <item>g21121744</item>
+        <item>s28361087</item>
+        <item>s26694057</item>
+        <item>s220d6736</item>
+        <item>s21727778</item>
         <!--自行添加广告栏目的div标签ID-->
     </string-array>
 
