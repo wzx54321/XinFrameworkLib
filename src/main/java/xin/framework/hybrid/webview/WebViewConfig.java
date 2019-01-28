@@ -150,7 +150,6 @@ public class WebViewConfig implements IWebViewInit {
         setting.setDisplayZoomControls(false);// 隐藏缩放按钮
         setting.setUseWideViewPort(true);
         setting.setLoadWithOverviewMode(true);
-
         if (SysUtils.hasKitKat()) {
 
             setting.setLayoutAlgorithm(android.webkit.WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
@@ -198,7 +197,8 @@ public class WebViewConfig implements IWebViewInit {
         setting.setDefaultFontSize(16);
         setting.setMinimumFontSize(12);//设置 WebView 支持的最小字体大小，默认为 8
         setting.setJavaScriptEnabled(true);
-
+        setting.setJavaScriptCanOpenWindowsAutomatically(true);
+        setting.setAllowUniversalAccessFromFileURLs(true);
         if (SysUtils.hasLollipop()) {
             //适配5.0不允许http和https混合使用情况
             setting.setMixedContentMode(android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);

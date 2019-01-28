@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--启动页默认的背景-->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- The background color, preferably the same as your normal theme -->
-    <item android:drawable="@android:color/white"/>
+    <item>
+        <shape>
+            <solid android:color="@android:color/white"/>
+        </shape>
+    </item>
     <!-- Your product logo - 144dp color version of your app icon -->
-   <!-- <item>
-        <bitmap
-            android:src="@drawable/product_logo_144dp"
-            android:gravity="center"/>
-    </item>-->
+    <!--  <item  >
+          <bitmap
+                  android:src="@drawable/ic_splash_icon"
+                  android:gravity="center_horizontal"
+                  android:mipMap="true"
+                  android:filter="true"
+
+          />
+      </item>
+  -->
+
+    <item>
+        <bitmap android:src="@drawable/splash"
+                android:tileMode="repeat"
+                android:filter="true"
+                android:gravity="center"/>
+
+    </item>
+
+
 </layer-list>

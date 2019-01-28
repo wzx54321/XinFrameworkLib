@@ -3,7 +3,7 @@ ext {
 
     androidVersion = [
             compileSdkVersion: 27,
-            minSdkVersion    : 16,
+            minSdkVersion    : 19,
             targetSdkVersion : 27,
             versionName      : "1.0.0",
 

@@ -15,12 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.view.View;
-import android.webkit.GeolocationPermissions;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.webkit.*;
 
 import org.w3c.dom.Text;
 
@@ -107,12 +102,13 @@ public class WebModel {
             if (isRun)
                 return;
 
+
             @SuppressLint("HandlerLeak") final Handler handler = new Handler() {
                 @Override
                 public void handleMessage(Message msg) {
                     String js = ADFilterTool.getClearAdDivJs(webView.getContext());
                     if (!TextUtils.isEmpty(js))
-                        webView.loadUrl(js);
+                        webView.evaluateJavascript(js,null);
                     removeMessages(0x001);
                     removeCallbacksAndMessages(null);
                 }
@@ -125,7 +121,7 @@ public class WebModel {
                     isRun = true;
                     while (isRun) {
                         try {
-                            Thread.sleep(300);
+                            Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -135,15 +131,16 @@ public class WebModel {
             }).start();
 
 
+
         }
 
 
         @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
+        public void onPageFinished(WebView webView, String url) {
+            super.onPageFinished(webView, url);
 
             // 部分手机在返回多级web页时，不回调onReceivedTitle方法，故在加载完成时，获取之前存储的title。
-            String titleText = titles.get(view.getOriginalUrl());
+            String titleText = titles.get(webView.getOriginalUrl());
             if (!TextUtils.isEmpty(titleText)) {
                 onTitleSet(titleText);
             }
@@ -152,6 +149,9 @@ public class WebModel {
             setTitleStyles();
 
             isRun = false;
+
+
+
         }
 
 

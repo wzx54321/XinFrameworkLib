@@ -49,11 +49,24 @@
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
     </style>
 
-
-    <!--弹框-->
+    <!--底部弹出弹框-->
     <style name="common_PopupAnimation" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
         <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
+
+
+    <!--下拉弹框-->
+    <style name="common_drop_PopupAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/push_top_in</item>
+        <item name="android:windowExitAnimation">@anim/push_top_out</item>
+    </style>
+
+
+    <!--下拉弹框-->
+    <style name="common_drop_PopupAnimation_no" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/push_top_no</item>
+        <item name="android:windowExitAnimation">@anim/push_top_no</item>
     </style>
 
 

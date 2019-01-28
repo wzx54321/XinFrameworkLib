@@ -71,10 +71,12 @@ public class CommonWebFragment extends XinFragment<WebPresenter> implements XinW
         mWebVideoDelegate = new WebVideoDelegate(getActivity(), mWebView);
         mWebView.setOnBackClickListener(this);
         mProgressbar = ViewFinder.find(rootView, R.id.progressbar_webview);
-        if (BuildConfig.DEBUG)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                mWebView.setWebContentsDebuggingEnabled(true);
-            }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
+        }
+
+
         StatusBarUtil.setPaddingSmart(getContext(), ViewFinder.find(rootView, R.id.title_root));
 
         mBtnGoBack = ViewFinder.find(rootView, R.id.app_back);
@@ -142,8 +144,6 @@ public class CommonWebFragment extends XinFragment<WebPresenter> implements XinW
             throw new NullPointerException("Arguments is null");
         }
     }
-
-
 
 
     public void setWebViewClient(WebModel.XinWebViewClient client) {
@@ -236,10 +236,8 @@ public class CommonWebFragment extends XinFragment<WebPresenter> implements XinW
     }
 
 
-
-
     public View getVideoLoadingProgressView() {
-        return  mWebVideoDelegate.getVideoLoadingProgressView();
+        return mWebVideoDelegate.getVideoLoadingProgressView();
     }
 
 
