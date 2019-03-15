@@ -166,8 +166,11 @@ BoxStoreExtedUtils.createBoxStore(boxStore);
 **旧版地址：https://github.com/wzx54321/XinFramework**
 # 
 
+[组件化开发Demo示例(XinframeworkSample](https://github.com/wzx54321/XinframeworkSample)
 
+[跨模块通信路由库(XinRouter)](https://github.com/wzx54321/XinRouter)  
 
+#
 
 #### About Me
 
